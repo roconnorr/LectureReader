@@ -16,6 +16,7 @@
 		1E5F84711F6BBF3900FD3CD6 /* storyboard_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F84701F6BBF3900FD3CD6 /* storyboard_testUITests.swift */; };
 		1E5F84B71F6BC22B00FD3CD6 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E5F84B61F6BC22B00FD3CD6 /* Quartz.framework */; };
 		1E5F84BB1F6BC60700FD3CD6 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 1E5F84BA1F6BC60700FD3CD6 /* Resources */; };
+		1EA072BC1F722C32008B1796 /* CustomPDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA072BB1F722C32008B1796 /* CustomPDFViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		1E5F84721F6BBF3900FD3CD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E5F84B61F6BC22B00FD3CD6 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		1E5F84BA1F6BC60700FD3CD6 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		1EA072BB1F722C32008B1796 /* CustomPDFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPDFViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				1E5F84571F6BBF3900FD3CD6 /* Assets.xcassets */,
 				1E5F84591F6BBF3900FD3CD6 /* Main.storyboard */,
 				1E5F845C1F6BBF3900FD3CD6 /* Info.plist */,
+				1EA072BB1F722C32008B1796 /* CustomPDFViewController.swift */,
 			);
 			path = "storyboard-test";
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EA072BC1F722C32008B1796 /* CustomPDFViewController.swift in Sources */,
 				1E5F84541F6BBF3900FD3CD6 /* ViewController.swift in Sources */,
 				1E5F84521F6BBF3900FD3CD6 /* AppDelegate.swift in Sources */,
 				1E5F84561F6BBF3900FD3CD6 /* Document.swift in Sources */,
@@ -518,6 +522,7 @@
 				1E5F84771F6BBF3900FD3CD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1E5F84781F6BBF3900FD3CD6 /* Build configuration list for PBXNativeTarget "storyboard-testTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +531,7 @@
 				1E5F847A1F6BBF3900FD3CD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1E5F847B1F6BBF3900FD3CD6 /* Build configuration list for PBXNativeTarget "storyboard-testUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +540,7 @@
 				1E5F847D1F6BBF3900FD3CD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

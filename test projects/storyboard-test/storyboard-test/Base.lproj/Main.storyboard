@@ -684,27 +684,50 @@
             <objects>
                 <viewController id="5gI-5U-AMq" customClass="ViewController" customModule="storyboard_test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="ERx-hH-rdd">
-                        <rect key="frame" x="0.0" y="0.0" width="745" height="461"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1246" height="1147"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <pdfView autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BZ-0P-jwQ">
-                                <rect key="frame" x="0.0" y="0.0" width="745" height="461"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Koy-25-3Qx">
+                                <rect key="frame" x="281" y="1073" width="90" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Zoom In" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ndd-1i-e27">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="zoomButton:" target="5gI-5U-AMq" id="cpD-8u-ZBv"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uuh-2G-p8n">
+                                <rect key="frame" x="74" y="1073" width="73" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uTl-zx-hFQ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="openButton:" target="5gI-5U-AMq" id="f5z-8d-EDJ"/>
+                                </connections>
+                            </button>
+                            <pdfThumbnailView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pvi-1h-F2C">
+                                <rect key="frame" x="0.0" y="706" width="122" height="359"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <size key="thumbnailSize" width="64" height="64"/>
+                            </pdfThumbnailView>
+                            <pdfView autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2BZ-0P-jwQ" customClass="CustomPDFViewController" customModule="storyboard_test" customModuleProvider="target">
+                                <rect key="frame" x="130" y="706" width="665" height="354"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </pdfView>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="2BZ-0P-jwQ" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="9qv-CK-V37"/>
-                            <constraint firstAttribute="bottom" secondItem="2BZ-0P-jwQ" secondAttribute="bottom" id="DZZ-rr-kZS"/>
-                            <constraint firstAttribute="trailing" secondItem="2BZ-0P-jwQ" secondAttribute="trailing" id="ONh-vl-GZL"/>
-                            <constraint firstItem="2BZ-0P-jwQ" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Ovr-gO-VR7"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="ourPDF" destination="2BZ-0P-jwQ" id="bpJ-xL-4RI"/>
+                        <outlet property="ourThumbnailView" destination="pvi-1h-F2C" id="Ljp-Ew-Q0n"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="177.5" y="546.5"/>
+            <point key="canvasLocation" x="344" y="889.5"/>
         </scene>
     </scenes>
 </document>
