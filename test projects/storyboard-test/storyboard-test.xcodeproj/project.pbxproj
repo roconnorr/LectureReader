@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1E5F84521F6BBF3900FD3CD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F84511F6BBF3900FD3CD6 /* AppDelegate.swift */; };
 		1E5F84541F6BBF3900FD3CD6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F84531F6BBF3900FD3CD6 /* ViewController.swift */; };
-		1E5F84561F6BBF3900FD3CD6 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F84551F6BBF3900FD3CD6 /* Document.swift */; };
 		1E5F84581F6BBF3900FD3CD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E5F84571F6BBF3900FD3CD6 /* Assets.xcassets */; };
 		1E5F845B1F6BBF3900FD3CD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E5F84591F6BBF3900FD3CD6 /* Main.storyboard */; };
 		1E5F84661F6BBF3900FD3CD6 /* storyboard_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F84651F6BBF3900FD3CD6 /* storyboard_testTests.swift */; };
@@ -17,6 +16,7 @@
 		1E5F84B71F6BC22B00FD3CD6 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E5F84B61F6BC22B00FD3CD6 /* Quartz.framework */; };
 		1E5F84BB1F6BC60700FD3CD6 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 1E5F84BA1F6BC60700FD3CD6 /* Resources */; };
 		1EA072BE1F7268DE008B1796 /* CustomPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA072BD1F7268DE008B1796 /* CustomPDFView.swift */; };
+		1EA60E491F74E7F400F6C773 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA60E481F74E7F400F6C773 /* Test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +40,6 @@
 		1E5F844E1F6BBF3900FD3CD6 /* storyboard-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "storyboard-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E5F84511F6BBF3900FD3CD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E5F84531F6BBF3900FD3CD6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1E5F84551F6BBF3900FD3CD6 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		1E5F84571F6BBF3900FD3CD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E5F845A1F6BBF3900FD3CD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1E5F845C1F6BBF3900FD3CD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +52,7 @@
 		1E5F84B61F6BC22B00FD3CD6 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		1E5F84BA1F6BC60700FD3CD6 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		1EA072BD1F7268DE008B1796 /* CustomPDFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPDFView.swift; sourceTree = "<group>"; };
+		1EA60E481F74E7F400F6C773 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,10 +109,10 @@
 				1E5F84511F6BBF3900FD3CD6 /* AppDelegate.swift */,
 				1E5F84531F6BBF3900FD3CD6 /* ViewController.swift */,
 				1EA072BD1F7268DE008B1796 /* CustomPDFView.swift */,
-				1E5F84551F6BBF3900FD3CD6 /* Document.swift */,
 				1E5F84571F6BBF3900FD3CD6 /* Assets.xcassets */,
 				1E5F84591F6BBF3900FD3CD6 /* Main.storyboard */,
 				1E5F845C1F6BBF3900FD3CD6 /* Info.plist */,
+				1EA60E481F74E7F400F6C773 /* Test.swift */,
 			);
 			path = "storyboard-test";
 			sourceTree = "<group>";
@@ -279,7 +279,7 @@
 			files = (
 				1E5F84541F6BBF3900FD3CD6 /* ViewController.swift in Sources */,
 				1E5F84521F6BBF3900FD3CD6 /* AppDelegate.swift in Sources */,
-				1E5F84561F6BBF3900FD3CD6 /* Document.swift in Sources */,
+				1EA60E491F74E7F400F6C773 /* Test.swift in Sources */,
 				1EA072BE1F7268DE008B1796 /* CustomPDFView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

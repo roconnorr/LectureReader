@@ -1,8 +1,8 @@
 //
 //  ViewController.swift
-//  storyboard-test
+//  Assignment2
 //
-//  Created by Rory O'Connor on 15/09/17.
+//  Created by Rory O'Connor on 25/09/17.
 //  Copyright © 2017 Rory O'Connor. All rights reserved.
 //
 
@@ -10,64 +10,51 @@ import Cocoa
 import Quartz
 
 class ViewController: NSViewController {
-    
+
     @IBOutlet weak var window: NSWindow!
-    //@IBOutlet weak var ourPDF: PDFView!
     
-    @IBOutlet weak var ourPDF: Test!
-    @IBOutlet weak var ourThumbnailView: PDFThumbnailView!
+    @IBOutlet weak var ourPDF: PDFView!
     
-    @IBOutlet weak var customPDF: CustomPDFView!
+    //@IBOutlet weak var ourThumbnailView: PDFThumbnailView!
     
+    @IBOutlet weak var pageLabel: NSTextField!
     
     @IBOutlet weak var pageNumber: NSTextField!
     
     
     var pdfDoc: PDFDocument?
     //var pdfPage0: PDFPage?
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //Set up the view after loading
         
-        // Do any additional setup after loading the view.
+        //set pdfView options
         ourPDF.autoScales = true
         ourPDF.displayMode = .singlePage
-        ourThumbnailView.pdfView = ourPDF
-        loadTestPDF()
+        
+        //ourThumbnailView.pdfView = ourPDF
         
         //customPDF.pdfDoc = pdfDoc
         //customPDF.pdfPage = 0
         //pageNumber.stringValue = customPDF.pdfPage.description
         
-//        if(pdfDoc != nil){
-//            print("asdf")
-//            let pdfPage0: PDFPage = (pdfDoc?.page(at: 0))!
-//            //let context = NSGraphicsContext.current()?.cgContext
-//            CGContext.
-//            pdfPage0.draw(with: .artBox, to: )
-//        }
-        
+        //        if(pdfDoc != nil){
+        //            print("asdf")
+        //            let pdfPage0: PDFPage = (pdfDoc?.page(at: 0))!
+        //            //let context = NSGraphicsContext.current()?.cgContext
+        //            CGContext.
+        //            pdfPage0.draw(with: .artBox, to: )
+        //        }
     }
-    
-    func loadTestPDF(){
-        print("nomeme")
-        if let url = Bundle.main.url(forResource: "Resources/Lecture1", withExtension: "pdf"){
-            pdfDoc = PDFDocument(url: url)
-            print("meme")
-            //ourPDF.document = pdf
-            
-        }
-    }
-    
     
     @IBAction func nextPageButton(_ sender: NSButton) {
         if ourPDF.canGoToNextPage() {
             ourPDF.goToNextPage(Any?.self)
         }
     }
-
+    
     
     @IBAction func prevPageButton(_ sender: Any) {
         if ourPDF.canGoToPreviousPage(){
@@ -123,10 +110,8 @@ class ViewController: NSViewController {
     
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
-
-
 }
 

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <plugIn identifier="com.apple.pdfkit.ibplugin" version="12121"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -678,14 +679,57 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="kO3-8o-TeZ">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="109" y="132" width="480" height="272"/>
+            <rect key="contentRect" x="109" y="132" width="712" height="479"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="5EI-vC-G2x">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                <rect key="frame" x="0.0" y="0.0" width="712" height="479"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <pdfView autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mqG-SN-FqU">
+                        <rect key="frame" x="51" y="57" width="576" height="384"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </pdfView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qC5-8j-Buc">
+                        <rect key="frame" x="635" y="413" width="71" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5sH-1I-ECy">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="openButton:" target="SWM-Bv-s6g" id="Qwn-MB-z9P"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WSj-mO-w8H">
+                        <rect key="frame" x="630" y="380" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="zoom+" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5Jn-UF-9M5">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="zoomInButton:" target="SWM-Bv-s6g" id="x5Z-KZ-pHS"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WzZ-OI-ErI">
+                        <rect key="frame" x="631" y="347" width="80" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="zoom-" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d2R-ek-nUJ">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="zoomOutButton:" target="SWM-Bv-s6g" id="bCC-8H-Ila"/>
+                        </connections>
+                    </button>
+                </subviews>
             </view>
-            <point key="canvasLocation" x="133" y="382"/>
+            <point key="canvasLocation" x="128" y="485.5"/>
         </window>
-        <customObject id="SWM-Bv-s6g" customClass="AppDelegate" customModule="no_storyboard_test" customModuleProvider="target"/>
+        <customObject id="SWM-Bv-s6g" customClass="AppDelegate" customModule="no_storyboard_test" customModuleProvider="target">
+            <connections>
+                <outlet property="ourPDF" destination="mqG-SN-FqU" id="lwg-yF-Mwr"/>
+            </connections>
+        </customObject>
     </objects>
 </document>

@@ -1,0 +1,17 @@
+COSC346 PDF LECTURE COCOA APP DOC
+
+Core Features to implement
+	-Open PDF or folder of pdfs
+	-Display pages
+	-Take notes on each page and entire document
+	-bookmark certain pages
+	-controls for changing current lecture
+	-full screen presentation mode
+		-in a separate window
+		-no controls visible
+		-can still navigate
+
+
+
+Extras? - 40% OF GRADE
+	-keyboard shortcuts

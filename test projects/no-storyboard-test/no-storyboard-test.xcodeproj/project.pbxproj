@@ -13,6 +13,7 @@
 		1E6B73771F6BBD1300BB2D5B /* no_storyboard_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6B73761F6BBD1300BB2D5B /* no_storyboard_testTests.swift */; };
 		1E6B73821F6BBD1300BB2D5B /* no_storyboard_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6B73811F6BBD1300BB2D5B /* no_storyboard_testUITests.swift */; };
 		1E6B73901F6BBD7E00BB2D5B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B738F1F6BBD7E00BB2D5B /* MainMenu.xib */; };
+		1E79E9821F74FC070015BED7 /* CustomPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E79E9811F74FC070015BED7 /* CustomPDFView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		1E6B73811F6BBD1300BB2D5B /* no_storyboard_testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = no_storyboard_testUITests.swift; sourceTree = "<group>"; };
 		1E6B73831F6BBD1300BB2D5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E6B738F1F6BBD7E00BB2D5B /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		1E79E9811F74FC070015BED7 /* CustomPDFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPDFView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				1E6B73681F6BBD1300BB2D5B /* Assets.xcassets */,
 				1E6B736D1F6BBD1300BB2D5B /* Info.plist */,
 				1E6B738F1F6BBD7E00BB2D5B /* MainMenu.xib */,
+				1E79E9811F74FC070015BED7 /* CustomPDFView.swift */,
 			);
 			path = "no-storyboard-test";
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			files = (
 				1E6B73631F6BBD1300BB2D5B /* AppDelegate.swift in Sources */,
 				1E6B73671F6BBD1300BB2D5B /* Document.swift in Sources */,
+				1E79E9821F74FC070015BED7 /* CustomPDFView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +491,7 @@
 				1E6B73881F6BBD1300BB2D5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1E6B73891F6BBD1300BB2D5B /* Build configuration list for PBXNativeTarget "no-storyboard-testTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +500,7 @@
 				1E6B738B1F6BBD1300BB2D5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1E6B738C1F6BBD1300BB2D5B /* Build configuration list for PBXNativeTarget "no-storyboard-testUITests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +509,7 @@
 				1E6B738E1F6BBD1300BB2D5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
