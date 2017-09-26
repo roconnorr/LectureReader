@@ -679,10 +679,55 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Window Controller-->
+        <scene sceneID="Yok-Ck-uQP">
+            <objects>
+                <windowController storyboardIdentifier="secondWindowController" id="4T9-Xz-Cuk" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="4D6-hO-8CP">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="163" y="199" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+                    </window>
+                    <connections>
+                        <segue destination="qs4-s5-Idr" kind="relationship" relationship="window.shadowedContentViewController" id="W2H-QW-XJg"/>
+                    </connections>
+                </windowController>
+                <customObject id="jkU-4L-YEj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="685" y="250"/>
+        </scene>
+        <!--Presentation View Controller-->
+        <scene sceneID="sxn-2Q-bra">
+            <objects>
+                <viewController storyboardIdentifier="presentationViewController" id="qs4-s5-Idr" customClass="PresentationViewController" customModule="Assignment2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="MMK-Wm-tvn">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <pdfView autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3oV-pw-DhG">
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
+                            </pdfView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="3oV-pw-DhG" firstAttribute="leading" secondItem="MMK-Wm-tvn" secondAttribute="leading" id="Q4y-iM-j5p"/>
+                            <constraint firstItem="3oV-pw-DhG" firstAttribute="top" secondItem="MMK-Wm-tvn" secondAttribute="top" id="SRQ-eC-9hv"/>
+                            <constraint firstAttribute="trailing" secondItem="3oV-pw-DhG" secondAttribute="trailing" id="aEn-2g-fvn"/>
+                            <constraint firstAttribute="bottom" secondItem="3oV-pw-DhG" secondAttribute="bottom" id="tJx-X1-OP0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="presentationPDFView" destination="3oV-pw-DhG" id="g5Q-UB-f5A"/>
+                    </connections>
+                </viewController>
+                <customObject id="XFd-Kq-xkP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="685" y="847"/>
+        </scene>
+        <!--Control View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Assignment2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ControlViewController" customModule="Assignment2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="758" height="626"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -764,17 +809,28 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2SK-ct-3Qz">
+                                <rect key="frame" x="567" y="201" width="115" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="new window" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cXw-om-eDn">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="newWindowButton:" target="XfG-lQ-9wD" id="WJf-m6-J6Z"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="ourPDF" destination="8og-zi-gGQ" id="o67-gP-lEj"/>
+                        <outlet property="controlPDFView" destination="8og-zi-gGQ" id="Gm6-Z2-U3u"/>
                         <outlet property="pageLabel" destination="7zz-n4-Zco" id="fUk-u6-nue"/>
                         <outlet property="pageNumber" destination="Tsv-da-wTl" id="lbE-SA-Deb"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="81" y="833"/>
+            <point key="canvasLocation" x="-64" y="870"/>
         </scene>
     </scenes>
 </document>

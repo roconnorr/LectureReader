@@ -9,11 +9,15 @@
 import Cocoa
 import Quartz
 
-class ViewController: NSViewController {
+protocol ControlDelegate {
+    func updatePDF(pdf: PDFDocument)
+}
+
+class ControlViewController: NSViewController {
 
     @IBOutlet weak var window: NSWindow!
     
-    @IBOutlet weak var ourPDF: PDFView!
+    @IBOutlet weak var controlPDFView: PDFView!
     
     //@IBOutlet weak var ourThumbnailView: PDFThumbnailView!
     
@@ -21,9 +25,16 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var pageNumber: NSTextField!
     
+    var presentationWindow: NSWindow!
+    var presentationController: PresentationViewController!
+    
+    //var pdfModel: PDFModel = PDFModel()
     
     var pdfDoc: PDFDocument?
     //var pdfPage0: PDFPage?
+    
+    //weak var delegate: ControlDelegate?
+    var delegate: ControlDelegate? = nil
     
     
     override func viewDidLoad() {
@@ -31,8 +42,8 @@ class ViewController: NSViewController {
         //Set up the view after loading
         
         //set pdfView options
-        ourPDF.autoScales = true
-        ourPDF.displayMode = .singlePage
+        controlPDFView.autoScales = true
+        controlPDFView.displayMode = .singlePage
         
         //ourThumbnailView.pdfView = ourPDF
         
@@ -47,27 +58,28 @@ class ViewController: NSViewController {
         //            CGContext.
         //            pdfPage0.draw(with: .artBox, to: )
         //        }
+        
     }
     
     @IBAction func nextPageButton(_ sender: NSButton) {
-        if ourPDF.canGoToNextPage() {
-            ourPDF.goToNextPage(Any?.self)
+        if controlPDFView.canGoToNextPage() {
+            controlPDFView.goToNextPage(Any?.self)
         }
     }
     
     
     @IBAction func prevPageButton(_ sender: Any) {
-        if ourPDF.canGoToPreviousPage(){
-            ourPDF.goToPreviousPage(Any?.self)
+        if controlPDFView.canGoToPreviousPage(){
+            controlPDFView.goToPreviousPage(Any?.self)
         }
     }
     
     @IBAction func zoomInButton(_ sender: NSButton) {
-        ourPDF.zoomIn(Any?.self)
+        controlPDFView.zoomIn(Any?.self)
     }
     
     @IBAction func zoomOutButton(_ sender: NSButton) {
-        ourPDF.zoomOut(Any?.self)
+        controlPDFView.zoomOut(Any?.self)
     }
     
     
@@ -92,19 +104,49 @@ class ViewController: NSViewController {
                 //check if the returned URL refers to a folder or a file
                 if FileManager.default.fileExists(atPath: result!.path, isDirectory: &isDirectory) {
                     if isDirectory.boolValue == true {
-                        //folder
+                        //is a folder
                         print("is a folder")
+                        
                     }else{
-                        //file
+                        //is a file
                         let pdf = PDFDocument(url: result!)
-                        print("is a file")
-                        ourPDF.document = pdf
+                        //PDFModel.pdfDoc = pdf
+                        pdfDoc = pdf
+                        controlPDFView.document = pdf
+                        alertDelegate()
                     }
                 }
             }
         } else {
             // User clicked on "Cancel"
             return
+        }
+    }
+    
+    
+    @IBAction func newWindowButton(_ sender: Any) {
+        //get a reference to the storyboard
+        let storyboard = NSStoryboard(name: "Main",bundle: nil)
+        //create an instance of the presentation controller
+        presentationController = storyboard.instantiateController(withIdentifier: "presentationViewController") as! PresentationViewController
+        //assign the delegate variable
+        delegate = presentationController
+        
+        //create a window and windowcontroller
+        presentationWindow = NSWindow(contentViewController: presentationController)
+        presentationWindow?.makeKeyAndOrderFront(self)
+        let vc = NSWindowController(window: presentationWindow)
+        //display the window
+        vc.showWindow(self)
+        
+        //update the presentation view pdf
+        alertDelegate()
+    }
+    
+    func alertDelegate() {
+        if let newPdf = pdfDoc {
+            //only update the delegate if it exits
+            delegate?.updatePDF(pdf: newPdf)
         }
     }
     
