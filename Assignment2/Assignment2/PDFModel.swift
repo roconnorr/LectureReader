@@ -15,5 +15,5 @@ import Quartz
 
 class PDFModel: NSObject {
     
-    var pdfDoc: PDFDocument?
+    var openPDFDocumentPathArray: [String]?
 }
