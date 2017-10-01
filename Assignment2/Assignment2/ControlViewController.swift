@@ -115,13 +115,6 @@ class ControlViewController: NSViewController {
         delegate?.prevPage()
     }
     
-    @IBAction func pageNumberEntered(_ sender: NSTextField) {
-        let page = controlPDFView.document?.page(at: Int(pageNumber.stringValue)! - 1)
-        if(page != nil) {
-            controlPDFView.go(to: page!)
-        }
-    }
-    
     
     @IBAction func zoomInButton(_ sender: NSButton) {
         controlPDFView.zoomIn(Any?.self)
@@ -133,6 +126,14 @@ class ControlViewController: NSViewController {
         delegate?.zoomOut()
     }
     
+    
+    @IBAction func pageNumberEntered(_ sender: NSTextField) {
+        let page = controlPDFView.document?.page(at: Int(pageNumber.stringValue)! - 1)
+        
+        if(page != nil){
+            controlPDFView.go(to: page!)
+        }
+    }
     
     @IBAction func openButton(_ sender: Any) {
         let dialog = NSOpenPanel();
@@ -172,7 +173,9 @@ class ControlViewController: NSViewController {
                         if isIndexValid! {
                             
                             let path = pdfModel.openPDFDocumentPathArray?[0]
-                            controlPDFView.document = getPDFFromPath(path: path!)
+                            let newPDF = getPDFFromPath(path: path!)
+                            controlPDFView.document = newPDF!
+                            updateDelegate(currentPDF: newPDF!)
                             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
                         }else{
                             print("No PDFs in this folder")
@@ -243,7 +246,9 @@ class ControlViewController: NSViewController {
             vc.showWindow(self)
             
             //update the presentation view pdf
-            //updateDelegate()
+            if let openPDF = controlPDFView.document {
+                updateDelegate(currentPDF: openPDF)
+            }
         }
     }
     
