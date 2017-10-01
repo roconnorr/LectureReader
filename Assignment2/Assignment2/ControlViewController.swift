@@ -74,6 +74,14 @@ class ControlViewController: NSViewController {
         }
     }
     
+    @IBAction func pageNumberEntered(_ sender: NSTextField) {
+        let page = controlPDFView.document?.page(at: Int(pageNumber.stringValue)! - 1)
+        if(page != nil) {
+            controlPDFView.go(to: page!)
+        }
+    }
+    
+    
     @IBAction func zoomInButton(_ sender: NSButton) {
         controlPDFView.zoomIn(Any?.self)
     }
