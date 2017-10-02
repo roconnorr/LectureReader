@@ -53,47 +53,53 @@ class ControlViewController: NSViewController {
     }
     
     @IBAction func nextLectureButton(_ sender: NSButton) {
-        var isIndexValid = pdfModel.openPDFDocumentPathArray?.indices.contains(currentLectureIndex + 1)
-        if isIndexValid != nil && isIndexValid != false{
+        var isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex + 1)
+        if isIndexValid != false{
             isIndexValid = true
         }else{
             isIndexValid = false
         }
         
-        if isIndexValid! {
+        if isIndexValid {
             currentLectureIndex += 1
-            let path = pdfModel.openPDFDocumentPathArray?[currentLectureIndex]
+            let pdf = pdfModel.openPDFs[currentLectureIndex]
             
-            let newPDF = getPDFFromPath(path: path!)
+            let newPDF = getPDFFromPath(path: pdf.path)
             //update
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
             //currentLectureIndex = currentLectureIndex + 1
             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
+            
+            //if the pdf changed, start at the first page
+            controlPDFView.goToFirstPage(Any?.self)
         }
     }
     
     
     @IBAction func prevLectureButton(_ sender: NSButton) {
-        var isIndexValid = pdfModel.openPDFDocumentPathArray?.indices.contains(currentLectureIndex - 1)
-        if isIndexValid != nil && isIndexValid != false{
+        var isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex - 1)
+        if isIndexValid != false{
             isIndexValid = true
         }else{
             isIndexValid = false
         }
         
-        if isIndexValid! {
+        if isIndexValid {
             currentLectureIndex -= 1
             //get path
-            let path = pdfModel.openPDFDocumentPathArray?[currentLectureIndex]
+            let pdf = pdfModel.openPDFs[currentLectureIndex]
             //get pdf file
-            let newPDF = getPDFFromPath(path: path!)
+            let newPDF = getPDFFromPath(path: pdf.path)
             
             //update
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
             //currentLectureIndex = currentLectureIndex + 1
             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
+            
+            //if the pdf changed, start at the first page
+            controlPDFView.goToFirstPage(Any?.self)
         }
     }
     
@@ -158,22 +164,28 @@ class ControlViewController: NSViewController {
                     if isDirectory.boolValue == true {
                         //is a folder
                         //open all pdf files in the folder and put them in the model
-                        var pdfs = extractAllFile(atPath: result!.path, withExtension: "pdf")
+                        var pdfLocations = extractAllFile(atPath: result!.path, withExtension: "pdf")
                         
                         //sort the pdfs numerically so they are in lecture order
-                        pdfs = pdfs.sorted { $0.compare($1, options: .numeric) == .orderedAscending }
+                        pdfLocations = pdfLocations.sorted { $0.compare($1, options: .numeric) == .orderedAscending }
                         //clear old pdfs
-                        pdfModel.openPDFDocumentPathArray?.removeAll()
+                        pdfModel.openPDFs.removeAll()
                         
-                        pdfModel.openPDFDocumentPathArray = pdfs
+                        var newPDFContainers: [PDFContainer] = [PDFContainer]()
+                        
+                        for location in pdfLocations {
+                            newPDFContainers.append(PDFContainer(path: location))
+                        }
+                        
+                        pdfModel.openPDFs = newPDFContainers
     
                         //check if any pdfs were opened
-                        let isIndexValid = pdfModel.openPDFDocumentPathArray?.indices.contains(0)
+                        let isIndexValid = pdfModel.openPDFs.indices.contains(0)
                         
-                        if isIndexValid! {
+                        if isIndexValid {
                             
-                            let path = pdfModel.openPDFDocumentPathArray?[0]
-                            let newPDF = getPDFFromPath(path: path!)
+                            let pdf = pdfModel.openPDFs[0]
+                            let newPDF = getPDFFromPath(path: pdf.path)
                             controlPDFView.document = newPDF!
                             updateDelegate(currentPDF: newPDF!)
                             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
@@ -184,12 +196,11 @@ class ControlViewController: NSViewController {
                     }else{
                         //is a file
                         let pdf = PDFDocument(url: result!)
-                        print(result!)
                         //put the opened document in the model
                         //clear open documents array
-                        pdfModel.openPDFDocumentPathArray?.removeAll()
+                        pdfModel.openPDFs.removeAll()
                         //add path to array
-                        pdfModel.openPDFDocumentPathArray?.append(result!.path)
+                        pdfModel.openPDFs.append(PDFContainer(path: result!.path))
                         //set the pdfview document
                         controlPDFView.document = pdf
                         //update the pdf of the presentation view

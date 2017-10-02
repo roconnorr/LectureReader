@@ -12,6 +12,5 @@ Core Features to implement
 		-can still navigate
 
 
-
-Extras? - 40% OF GRADE
-	-keyboard shortcuts
+Bugs:
+ -swapping lectures when not on the first page opens the new lecture on the page the last one was on

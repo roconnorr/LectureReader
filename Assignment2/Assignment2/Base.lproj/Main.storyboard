@@ -662,6 +662,37 @@
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
         <!--Window Controller-->
+        <scene sceneID="I0u-2a-wgP">
+            <objects>
+                <windowController id="OLv-P8-vbb" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="yA6-SK-lsd">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="163" y="199" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+                    </window>
+                    <connections>
+                        <segue destination="Eos-JS-j4T" kind="relationship" relationship="window.shadowedContentViewController" id="Ec8-nv-eFK"/>
+                    </connections>
+                </windowController>
+                <customObject id="zLy-Vl-g0k" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-731" y="257"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="DaA-ni-TpF">
+            <objects>
+                <viewController id="Eos-JS-j4T" sceneMemberID="viewController">
+                    <view key="view" id="1PW-Ge-HCh">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="Vdd-MV-ogg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-725" y="902"/>
+        </scene>
+        <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
