@@ -9,10 +9,6 @@
 import Cocoa
 import Quartz
 
-//public protocol PDFModelDelegate {
-//    func pdfChanged(pdfDoc: PDFDocument)
-//}
-
 class PDFModel: NSObject {
     
     var openPDFs: [PDFContainer] = [PDFContainer]()

@@ -9,6 +9,9 @@
 import Cocoa
 import Quartz
 
+/**
+ Protocol to be implemented by the presentation view controller
+ */
 protocol ControlDelegate {
     func updatePDF(pdf: PDFDocument)
     func nextPage()
@@ -17,167 +20,193 @@ protocol ControlDelegate {
     func zoomOut()
 }
 
+/**
+ View controller for the control window (main window) of the application.
+ */
 class ControlViewController: NSViewController, NSTextFieldDelegate {
+    
+    //MARK: Outlets
     
     @IBOutlet weak var window: NSWindow!
     
+    //the PDFView for the control window
     @IBOutlet weak var controlPDFView: PDFView!
     
-    //@IBOutlet weak var thumbnailView: PDFThumbnailView!
+    //displays total pages of the current file
+    @IBOutlet weak var totalPagesLabel: NSTextField!
     
-    
-    @IBOutlet weak var pageNumber: NSTextField!
-    
-    @IBOutlet weak var totalPages: NSTextField!
-    
+    //displays current lecture name
     @IBOutlet weak var currentLectureLabel: NSTextField!
+
+    //field for diplaying current page, also takes valid int input and changes pages
+    @IBOutlet weak var pageNumberTextField: NSTextField!
     
-    
+    //takes notes for the current file
     @IBOutlet weak var fileNotesTextField: NSTextField!
     
+    //take notes for tue current page
     @IBOutlet weak var pageNotesTextField: NSTextField!
     
-    var currentPage: Int = 1
     
+    //MARK: Variables
+    
+    //current page
+    var currentPageIndex: Int = 1
+    
+    //current lecture file
     var currentLectureIndex: Int = 0
     
+    //reference to the pop out presentation window
     var presentationWindow: NSWindow!
     
+    //reference to the presentation view controller
     var presentationController: PresentationViewController!
     
+    //instance of the PDF file data storage class
     var pdfModel: PDFModel = PDFModel()
     
-    var delegate: ControlDelegate? = nil
+    //presentation delegate reference
+    var presentationDelegate: ControlDelegate? = nil
     
-    
+    /**
+     comment
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //set pdfView options
+        //set the PDFView options
         controlPDFView.autoScales = true
         controlPDFView.displayMode = .singlePage
         
-        //set text delegates
+        //set textfield delegates
         fileNotesTextField.delegate = self
         pageNotesTextField.delegate = self
-        //ourThumbnailView.pdfView = ourPDF
     }
     
+    //MARK: Actions
+    
+    /**
+     Action for the next lecture button, if the next lecture exists,
+     changes the lecture and performs required setup
+     */
     @IBAction func nextLectureButton(_ sender: NSButton) {
-        var isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex + 1)
-        if isIndexValid != false{
-            isIndexValid = true
-        }else{
-            isIndexValid = false
-        }
+        //check if the next lecture exists
+        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex + 1)
         
         if isIndexValid {
             currentLectureIndex += 1
-            let pdf = pdfModel.openPDFs[currentLectureIndex]
+            currentPageIndex = 1
             
+            //retrieve the next pdf file and update the control and presentation PDFViews
+            let pdf = pdfModel.openPDFs[currentLectureIndex]
             let newPDF = getPDFFromPath(path: pdf.path)
-            //update
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
-            //currentLectureIndex = currentLectureIndex + 1
-            currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
             
             //load notes
             fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
             
-            currentPage = 1
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
-            
-            //if the pdf changed, start at the first page
+            //start at the first page
             controlPDFView.goToFirstPage(Any?.self)
             
-            
-            pageNumber.stringValue = "1"
-            totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
+            //set labels and page number field
+            currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
+            totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
+            pageNumberTextField.stringValue = currentPageIndex.description
         }
     }
     
-    
+    /**
+     Action for the previous lecture button, if the previous lecture exists,
+     changes the lecture and performs required setup
+     */
     @IBAction func prevLectureButton(_ sender: NSButton) {
-        var isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex - 1)
-        if isIndexValid != false{
-            isIndexValid = true
-        }else{
-            isIndexValid = false
-        }
+        //check if the next lecture exists
+        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex - 1)
         
         if isIndexValid {
             currentLectureIndex -= 1
-            //get path
-            let pdf = pdfModel.openPDFs[currentLectureIndex]
-            //get pdf file
-            let newPDF = getPDFFromPath(path: pdf.path)
+            currentPageIndex = 1
             
-            //update
+            //retrieve the next pdf file and update the control and presentation PDFViews
+            let pdf = pdfModel.openPDFs[currentLectureIndex]
+            let newPDF = getPDFFromPath(path: pdf.path)
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
-            //currentLectureIndex = currentLectureIndex + 1
-            currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
             
             //load notes
             fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
             
-            //if the pdf changed, start at the first page
+            //start at the first page
             controlPDFView.goToFirstPage(Any?.self)
-            currentPage = 1
             
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
-            
-            pageNumber.stringValue = "1"
-            totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
+            //set labels and page number field
+            currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
+            totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
+            pageNumberTextField.stringValue = currentLectureIndex.description
         }
     }
     
-    
+    /**
+     comment
+     */
     @IBAction func nextPageButton(_ sender: NSButton) {
         if controlPDFView.canGoToNextPage() {
             controlPDFView.goToNextPage(Any?.self)
-            currentPage += 1
-            pageNumber.stringValue = currentPage.description
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
+            currentPageIndex += 1
+            pageNumberTextField.stringValue = currentPageIndex.description
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
+            presentationDelegate?.nextPage()
         }
-        delegate?.nextPage()
     }
     
-    
+    /**
+     comment
+     */
     @IBAction func prevPageButton(_ sender: Any) {
         if controlPDFView.canGoToPreviousPage(){
             controlPDFView.goToPreviousPage(Any?.self)
-            currentPage -= 1
-            pageNumber.stringValue = currentPage.description
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
+            currentPageIndex -= 1
+            pageNumberTextField.stringValue = currentPageIndex.description
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
+            presentationDelegate?.prevPage()
         }
-        
-        delegate?.prevPage()
     }
     
-    
+    /**
+     comment
+     */
     @IBAction func zoomInButton(_ sender: NSButton) {
         controlPDFView.zoomIn(Any?.self)
-        delegate?.zoomIn()
+        presentationDelegate?.zoomIn()
     }
     
+    /**
+     comment
+     */
     @IBAction func zoomOutButton(_ sender: NSButton) {
         controlPDFView.zoomOut(Any?.self)
-        delegate?.zoomOut()
+        presentationDelegate?.zoomOut()
     }
     
-    
+    /**
+     comment
+     */
     @IBAction func pageNumberEntered(_ sender: NSTextField) {
-        currentPage = Int(pageNumber.stringValue)! - 1
-        let page = controlPDFView.document?.page(at: currentPage)
+        currentPageIndex = Int(pageNumberTextField.stringValue)! - 1
+        let page = controlPDFView.document?.page(at: currentPageIndex)
         
         if(page != nil){
             controlPDFView.go(to: page!)
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
         }
     }
     
+    /**
+     comment
+     */
     @IBAction func openButton(_ sender: Any) {
         let dialog = NSOpenPanel();
         
@@ -201,7 +230,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                     if isDirectory.boolValue == true {
                         //is a folder
                         //open all pdf files in the folder and put them in the model
-                        var pdfLocations = extractAllFile(atPath: result!.path, withExtension: "pdf")
+                        var pdfLocations = extractPDFFiles(atPath: result!.path, withExtension: "pdf")
                         
                         //sort the pdfs numerically so they are in lecture order
                         pdfLocations = pdfLocations.sorted { $0.compare($1, options: .numeric) == .orderedAscending }
@@ -225,10 +254,10 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                             let newPDF = getPDFFromPath(path: pdf.path)
                             controlPDFView.document = newPDF!
                             updateDelegate(currentPDF: newPDF!)
-                            currentPage = 1
+                            currentPageIndex = 1
                             
-                            pageNumber.stringValue = currentPage.description
-                            totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
+                            pageNumberTextField.stringValue = currentPageIndex.description
+                            totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
                             
                             
                             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
@@ -248,9 +277,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                         controlPDFView.document = pdf
                         //update the pdf of the presentation view
                         updateDelegate(currentPDF: pdf!)
-                        currentPage = 1
-                        pageNumber.stringValue = currentPage.description
-                        totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
+                        currentPageIndex = 1
+                        pageNumberTextField.stringValue = currentPageIndex.description
+                        totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
                     }
                 }
             }
@@ -260,21 +289,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    func extractAllFile(atPath path: String, withExtension fileExtension:String) -> [String] {
-        let pathURL = NSURL(fileURLWithPath: path, isDirectory: true)
-        var allFiles: [String] = []
-        let fileManager = FileManager.default
-        if let enumerator = fileManager.enumerator(atPath: path) {
-            for file in enumerator {
-                if let path = NSURL(fileURLWithPath: file as! String, relativeTo: pathURL as URL).path, path.hasSuffix(".\(fileExtension)"){
-                    allFiles.append(path)
-                }
-            }
-        }
-        return allFiles
-    }
-    
-    
+    /**
+     comment
+     */
     @IBAction func newWindowButton(_ sender: Any) {
         //check if the window is already open in full screen mode
         //or if it is visible (e.g. open but not full screen)
@@ -293,7 +310,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //create an instance of the presentation controller
             presentationController = storyboard.instantiateController(withIdentifier: "presentationViewController") as! PresentationViewController
             //assign the delegate variable
-            delegate = presentationController
+            presentationDelegate = presentationController
             
             //create a window and windowcontroller
             presentationWindow = NSWindow(contentViewController: presentationController)
@@ -309,11 +326,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
+    //MARK: Utility Functions
     
-    func updateDelegate(currentPDF: PDFDocument) {
-        delegate?.updatePDF(pdf: currentPDF)
-    }
-    
+    /**
+     comment
+     */
     override func controlTextDidChange(_ obj: Notification) {
         if let txtFld = obj.object as? NSTextField {
             switch txtFld.tag {
@@ -329,7 +346,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             case 202:
                 let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
                 if isIndexValid {
-                    pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage] = txtFld.stringValue
+                    pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex] = txtFld.stringValue
                 }else{
                     txtFld.stringValue = ""
                 }
@@ -340,6 +357,26 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
+    /**
+     comment
+     */
+    func extractPDFFiles(atPath path: String, withExtension fileExtension:String) -> [String] {
+        let pathURL = NSURL(fileURLWithPath: path, isDirectory: true)
+        var allFiles: [String] = []
+        let fileManager = FileManager.default
+        if let enumerator = fileManager.enumerator(atPath: path) {
+            for file in enumerator {
+                if let path = NSURL(fileURLWithPath: file as! String, relativeTo: pathURL as URL).path, path.hasSuffix(".\(fileExtension)"){
+                    allFiles.append(path)
+                }
+            }
+        }
+        return allFiles
+    }
+    
+    /**
+     comment
+     */
     func getPDFFromPath(path: String) -> PDFDocument?{
         //get url from path string
         let newUrl = URL.init(fileURLWithPath: path)
@@ -347,6 +384,16 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         return PDFDocument(url: newUrl)
     }
     
+    /**
+     comment
+     */
+    func updateDelegate(currentPDF: PDFDocument) {
+        presentationDelegate?.updatePDF(pdf: currentPDF)
+    }
+    
+    /**
+     comment
+     */
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.

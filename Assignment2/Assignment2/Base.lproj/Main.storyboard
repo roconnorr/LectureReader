@@ -897,8 +897,8 @@
                         <outlet property="currentLectureLabel" destination="iGx-h9-6GQ" id="yXf-Xb-yaL"/>
                         <outlet property="fileNotesTextField" destination="6KM-cr-D05" id="eSH-E3-AqU"/>
                         <outlet property="pageNotesTextField" destination="gky-Ks-zgA" id="kS2-Jq-xz9"/>
-                        <outlet property="pageNumber" destination="Tsv-da-wTl" id="xuv-Zp-bwN"/>
-                        <outlet property="totalPages" destination="laL-6q-9gI" id="gMh-5C-QLi"/>
+                        <outlet property="pageNumberTextField" destination="Tsv-da-wTl" id="eda-RL-brq"/>
+                        <outlet property="totalPagesLabel" destination="laL-6q-9gI" id="BiT-26-vk3"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
