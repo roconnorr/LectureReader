@@ -17,7 +17,7 @@ protocol ControlDelegate {
     func zoomOut()
 }
 
-class ControlViewController: NSViewController {
+class ControlViewController: NSViewController, NSTextFieldDelegate {
     
     @IBOutlet weak var window: NSWindow!
     
@@ -30,6 +30,12 @@ class ControlViewController: NSViewController {
     @IBOutlet weak var pageNumber: NSTextField!
     
     @IBOutlet weak var currentLectureLabel: NSTextField!
+    
+    
+    @IBOutlet weak var fileNotesTextField: NSTextField!
+    
+    @IBOutlet weak var pageNotesTextField: NSTextField!
+    
     
     var currentLectureIndex: Int = 0
     
@@ -49,6 +55,9 @@ class ControlViewController: NSViewController {
         controlPDFView.autoScales = true
         controlPDFView.displayMode = .singlePage
         
+        //set text delegates
+        fileNotesTextField.delegate = self
+        pageNotesTextField.delegate = self
         //ourThumbnailView.pdfView = ourPDF
     }
     
@@ -188,6 +197,7 @@ class ControlViewController: NSViewController {
                             let newPDF = getPDFFromPath(path: pdf.path)
                             controlPDFView.document = newPDF!
                             updateDelegate(currentPDF: newPDF!)
+                            
                             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
                         }else{
                             print("No PDFs in this folder")
@@ -266,6 +276,24 @@ class ControlViewController: NSViewController {
     
     func updateDelegate(currentPDF: PDFDocument) {
         delegate?.updatePDF(pdf: currentPDF)
+    }
+    
+    override func controlTextDidChange(_ obj: Notification) {
+        if let txtFld = obj.object as? NSTextField {
+            switch txtFld.tag {
+            //file notes
+            case 201:
+                pdfModel.openPDFs[currentLectureIndex].fileNote = txtFld.stringValue
+            //page notes
+            case 202:
+                break;
+                //controlPDFView.currentDestination?.
+               // pdfModel.openPDFs[currentLectureIndex].pageNotes[pageNumber] = txtFld.stringValue
+            default:
+                break
+                
+            }
+        }
     }
     
     func getPDFFromPath(path: String) -> PDFDocument?{
