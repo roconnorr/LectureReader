@@ -886,9 +886,9 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laL-6q-9gI">
-                                <rect key="frame" x="634" y="307" width="52" height="17"/>
+                                <rect key="frame" x="634" y="307" width="38" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="PageNo" id="pks-W4-MlE">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="/" id="pks-W4-MlE">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -901,6 +901,7 @@
                         <outlet property="currentLectureLabel" destination="iGx-h9-6GQ" id="yXf-Xb-yaL"/>
                         <outlet property="pageLabel" destination="7zz-n4-Zco" id="fUk-u6-nue"/>
                         <outlet property="pageNumber" destination="Tsv-da-wTl" id="lbE-SA-Deb"/>
+                        <outlet property="totalPages" destination="laL-6q-9gI" id="BXi-2p-fzA"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
