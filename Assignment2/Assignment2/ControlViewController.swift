@@ -37,6 +37,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     
     @IBOutlet weak var pageNotesTextField: NSTextField!
     
+    var currentPage: Int = 1
     
     var currentLectureIndex: Int = 0
     
@@ -81,11 +82,19 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //currentLectureIndex = currentLectureIndex + 1
             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
             
+            //load notes
+            fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
+            
+            currentPage = 1
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
+            
             //if the pdf changed, start at the first page
             controlPDFView.goToFirstPage(Any?.self)
+            
+            
+            pageNumber.stringValue = "1"
+            totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
         }
-        pageNumber.stringValue = "1"
-        totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
     }
     
     
@@ -110,18 +119,27 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //currentLectureIndex = currentLectureIndex + 1
             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
             
+            //load notes
+            fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
+            
             //if the pdf changed, start at the first page
             controlPDFView.goToFirstPage(Any?.self)
+            currentPage = 1
+            
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
+            
+            pageNumber.stringValue = "1"
+            totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
         }
-        pageNumber.stringValue = "1"
-        totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
     }
     
     
     @IBAction func nextPageButton(_ sender: NSButton) {
         if controlPDFView.canGoToNextPage() {
             controlPDFView.goToNextPage(Any?.self)
-            pageNumber.stringValue = String(describing: Int(pageNumber.stringValue)! + 1)
+            currentPage += 1
+            pageNumber.stringValue = currentPage.description
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
         }
         delegate?.nextPage()
     }
@@ -130,7 +148,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func prevPageButton(_ sender: Any) {
         if controlPDFView.canGoToPreviousPage(){
             controlPDFView.goToPreviousPage(Any?.self)
-            pageNumber.stringValue = String(describing: Int(pageNumber.stringValue)! - 1)
+            currentPage -= 1
+            pageNumber.stringValue = currentPage.description
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
         }
         
         delegate?.prevPage()
@@ -149,10 +169,12 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     
     
     @IBAction func pageNumberEntered(_ sender: NSTextField) {
-        let page = controlPDFView.document?.page(at: Int(pageNumber.stringValue)! - 1)
+        currentPage = Int(pageNumber.stringValue)! - 1
+        let page = controlPDFView.document?.page(at: currentPage)
         
         if(page != nil){
             controlPDFView.go(to: page!)
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage]
         }
     }
     
@@ -203,8 +225,12 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                             let newPDF = getPDFFromPath(path: pdf.path)
                             controlPDFView.document = newPDF!
                             updateDelegate(currentPDF: newPDF!)
-                            pageNumber.stringValue = "1"
+                            currentPage = 1
+                            
+                            pageNumber.stringValue = currentPage.description
                             totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
+                            
+                            
                             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
                         }else{
                             print("No PDFs in this folder")
@@ -222,7 +248,8 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                         controlPDFView.document = pdf
                         //update the pdf of the presentation view
                         updateDelegate(currentPDF: pdf!)
-                        pageNumber.stringValue = "1"
+                        currentPage = 1
+                        pageNumber.stringValue = currentPage.description
                         totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
                     }
                 }
@@ -292,12 +319,20 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             switch txtFld.tag {
             //file notes
             case 201:
-                pdfModel.openPDFs[currentLectureIndex].fileNote = txtFld.stringValue
+                let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+                if isIndexValid {
+                    pdfModel.openPDFs[currentLectureIndex].fileNote = txtFld.stringValue
+                }else{
+                    txtFld.stringValue = ""
+                }
             //page notes
             case 202:
-                break;
-                //controlPDFView.currentDestination?.
-               // pdfModel.openPDFs[currentLectureIndex].pageNotes[pageNumber] = txtFld.stringValue
+                let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+                if isIndexValid {
+                    pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPage] = txtFld.stringValue
+                }else{
+                    txtFld.stringValue = ""
+                }
             default:
                 break
                 

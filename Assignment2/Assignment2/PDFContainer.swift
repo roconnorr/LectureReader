@@ -15,7 +15,7 @@ class PDFContainer: NSObject {
     var path: String
     
     //a note's index in the array corresponds to its page
-    var pageNotes: [String] = [String]()
+    var pageNotes: [String] = [String](repeating: "", count: 50)
     
     var fileNote: String = ""
     
