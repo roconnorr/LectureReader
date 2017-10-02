@@ -18,6 +18,7 @@ protocol ControlDelegate {
 }
 
 class ControlViewController: NSViewController, NSTextFieldDelegate {
+class ControlViewController: NSViewController {
     
     @IBOutlet weak var window: NSWindow!
     
@@ -28,6 +29,8 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var pageLabel: NSTextField!
     
     @IBOutlet weak var pageNumber: NSTextField!
+    
+    @IBOutlet weak var totalPages: NSTextField!
     
     @IBOutlet weak var currentLectureLabel: NSTextField!
     
@@ -83,6 +86,8 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //if the pdf changed, start at the first page
             controlPDFView.goToFirstPage(Any?.self)
         }
+        pageNumber.stringValue = "1"
+        totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
     }
     
     
@@ -110,14 +115,16 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //if the pdf changed, start at the first page
             controlPDFView.goToFirstPage(Any?.self)
         }
+        pageNumber.stringValue = "1"
+        totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
     }
     
     
     @IBAction func nextPageButton(_ sender: NSButton) {
         if controlPDFView.canGoToNextPage() {
             controlPDFView.goToNextPage(Any?.self)
+            pageNumber.stringValue = String(describing: Int(pageNumber.stringValue)! + 1)
         }
-        
         delegate?.nextPage()
     }
     
@@ -125,6 +132,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func prevPageButton(_ sender: Any) {
         if controlPDFView.canGoToPreviousPage(){
             controlPDFView.goToPreviousPage(Any?.self)
+            pageNumber.stringValue = String(describing: Int(pageNumber.stringValue)! - 1)
         }
         
         delegate?.prevPage()
@@ -197,7 +205,8 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                             let newPDF = getPDFFromPath(path: pdf.path)
                             controlPDFView.document = newPDF!
                             updateDelegate(currentPDF: newPDF!)
-                            
+                            pageNumber.stringValue = "1"
+                            totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
                             currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
                         }else{
                             print("No PDFs in this folder")
@@ -215,6 +224,8 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                         controlPDFView.document = pdf
                         //update the pdf of the presentation view
                         updateDelegate(currentPDF: pdf!)
+                        pageNumber.stringValue = "1"
+                        totalPages.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
                     }
                 }
             }
