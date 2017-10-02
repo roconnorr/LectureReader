@@ -803,15 +803,6 @@
                                     <action selector="pageNumberEntered:" target="XfG-lQ-9wD" id="HdW-GP-MTd"/>
                                 </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zz-n4-Zco">
-                                <rect key="frame" x="931" y="332" width="52" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="PageNo" id="16v-Gx-HKx">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2SK-ct-3Qz">
                                 <rect key="frame" x="889" y="201" width="115" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -863,7 +854,6 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-<<<<<<< HEAD
                             <textField toolTip="asdf" verticalHuggingPriority="750" fixedFrame="YES" tag="201" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KM-cr-D05">
                                 <rect key="frame" x="49" y="367" width="162" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -895,12 +885,6 @@
                                 <rect key="frame" x="94" y="332" width="72" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Page notes" id="ZIH-Ii-Odg">
-=======
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laL-6q-9gI">
-                                <rect key="frame" x="634" y="307" width="38" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="/" id="pks-W4-MlE">
->>>>>>> 4341153858aac538fc9be058ff3490a309bf664e
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -912,10 +896,9 @@
                         <outlet property="controlPDFView" destination="8og-zi-gGQ" id="Gm6-Z2-U3u"/>
                         <outlet property="currentLectureLabel" destination="iGx-h9-6GQ" id="yXf-Xb-yaL"/>
                         <outlet property="fileNotesTextField" destination="6KM-cr-D05" id="eSH-E3-AqU"/>
-                        <outlet property="pageLabel" destination="7zz-n4-Zco" id="fUk-u6-nue"/>
                         <outlet property="pageNotesTextField" destination="gky-Ks-zgA" id="kS2-Jq-xz9"/>
-                        <outlet property="pageNumber" destination="Tsv-da-wTl" id="lbE-SA-Deb"/>
-                        <outlet property="totalPages" destination="laL-6q-9gI" id="BXi-2p-fzA"/>
+                        <outlet property="pageNumber" destination="Tsv-da-wTl" id="xuv-Zp-bwN"/>
+                        <outlet property="totalPages" destination="laL-6q-9gI" id="gMh-5C-QLi"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

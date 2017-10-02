@@ -18,7 +18,6 @@ protocol ControlDelegate {
 }
 
 class ControlViewController: NSViewController, NSTextFieldDelegate {
-class ControlViewController: NSViewController {
     
     @IBOutlet weak var window: NSWindow!
     
@@ -26,7 +25,6 @@ class ControlViewController: NSViewController {
     
     //@IBOutlet weak var thumbnailView: PDFThumbnailView!
     
-    @IBOutlet weak var pageLabel: NSTextField!
     
     @IBOutlet weak var pageNumber: NSTextField!
     
