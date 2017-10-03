@@ -68,6 +68,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     //presentation delegate reference
     var presentationDelegate: ControlDelegate? = nil
     
+    //store the last search result selection
+    var lastSearchResult: PDFSelection? = nil
+    
     /**
      Perform setup after the view has loaded
      */
@@ -363,6 +366,28 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             }
         }
     }
+    
+    /**
+     Recieves search string entered event, searches the document
+     for the first occurence of the string, if the search is entered again,
+     continues to next result
+     */
+    @IBAction func searchStringEntered(_ sender: NSSearchField) {
+        //set and pass the last search result. If it is nil search starts at the start of the document
+        //if not nil, finds the next result
+        lastSearchResult = controlPDFView.document?.findString(sender.stringValue, from: lastSearchResult, withOptions: Int(NSString.CompareOptions.caseInsensitive.rawValue))
+        
+        //if the search returned a result, highlight it and scroll the view to the selection
+        controlPDFView.setCurrentSelection(lastSearchResult, animate: true)
+        controlPDFView.scrollSelectionToVisible(Any?.self)
+        
+        //if a page is currently opened, set the index and pageNumberTextField
+        if let page  = controlPDFView.currentPage {
+            currentPageIndex = (controlPDFView.document?.index(for: page))! + 1
+            pageNumberTextField.stringValue = currentPageIndex.description
+        }
+    }
+    
     
     //MARK: Utility Functions
     
