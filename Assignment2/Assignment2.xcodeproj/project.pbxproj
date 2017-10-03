@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E1934741F83088E00C581E6 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1934731F83088E00C581E6 /* TimerViewController.swift */; };
+		1E1934771F83096300C581E6 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1934751F83096300C581E6 /* TimerModel.swift */; };
 		1E65D7B21F81E24E00D71AC2 /* PDFContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E65D7B11F81E24E00D71AC2 /* PDFContainer.swift */; };
 		1E89E3931F78AC4A00E02792 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E89E3921F78AC4A00E02792 /* AppDelegate.swift */; };
 		1E89E3951F78AC4A00E02792 /* ControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E89E3941F78AC4A00E02792 /* ControlViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E1934731F83088E00C581E6 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
+		1E1934751F83096300C581E6 /* TimerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		1E65D7B11F81E24E00D71AC2 /* PDFContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFContainer.swift; sourceTree = "<group>"; };
 		1E89E38F1F78AC4A00E02792 /* Assignment2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E89E3921F78AC4A00E02792 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,8 +65,10 @@
 				1E89E3921F78AC4A00E02792 /* AppDelegate.swift */,
 				1E89E3941F78AC4A00E02792 /* ControlViewController.swift */,
 				1EB7D8F11F79D1C90013C0BF /* PresentationViewController.swift */,
-				1EEC9E641F79E385001D3902 /* PDFModel.swift */,
+				1E1934731F83088E00C581E6 /* TimerViewController.swift */,
 				1E65D7B11F81E24E00D71AC2 /* PDFContainer.swift */,
+				1EEC9E641F79E385001D3902 /* PDFModel.swift */,
+				1E1934751F83096300C581E6 /* TimerModel.swift */,
 				1E89E3961F78AC4A00E02792 /* Assets.xcassets */,
 				1E89E3981F78AC4A00E02792 /* Main.storyboard */,
 				1E89E39B1F78AC4A00E02792 /* Info.plist */,
@@ -145,6 +151,8 @@
 				1E89E3951F78AC4A00E02792 /* ControlViewController.swift in Sources */,
 				1EB7D8F21F79D1C90013C0BF /* PresentationViewController.swift in Sources */,
 				1E65D7B21F81E24E00D71AC2 /* PDFContainer.swift in Sources */,
+				1E1934771F83096300C581E6 /* TimerModel.swift in Sources */,
+				1E1934741F83088E00C581E6 /* TimerViewController.swift in Sources */,
 				1E89E3931F78AC4A00E02792 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
