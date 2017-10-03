@@ -909,6 +909,17 @@
                                     <action selector="searchStringEntered:" target="XfG-lQ-9wD" id="qDk-Wu-vTK"/>
                                 </connections>
                             </searchField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6mI-7g-rVb">
+                                <rect key="frame" x="908" y="327" width="105" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Fit to Page" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="brA-Kn-DvF">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="fitToPageButton:" target="XfG-lQ-9wD" id="m1c-e6-tfE"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>

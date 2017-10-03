@@ -13,11 +13,12 @@ import Quartz
  Protocol to be implemented by the presentation view controller
  */
 protocol ControlDelegate {
-    func updatePDF(pdf: PDFDocument)
+    func updatePDF(pdf: PDFDocument, scaleFactor: CGFloat)
     func nextPage()
     func prevPage()
     func zoomIn()
     func zoomOut()
+    func fitToPage()
 }
 
 /**
@@ -207,6 +208,16 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         controlPDFView.zoomOut(Any?.self)
         presentationDelegate?.zoomOut()
     }
+    
+    /**
+     Handles fit to page button clicked event.
+     Resets the scale factor of views to 1
+     */
+    @IBAction func fitToPageButton(_ sender: NSButton) {
+        controlPDFView.scaleFactor = 1.0
+        presentationDelegate?.fitToPage()
+    }
+    
     
     /**
      Handles text entered in pageNumberTextField, if a valid page was entered,
@@ -468,7 +479,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      Helper function for updating the presentation view with a new pdf
      */
     func updateDelegate(currentPDF: PDFDocument) {
-        presentationDelegate?.updatePDF(pdf: currentPDF)
+        presentationDelegate?.updatePDF(pdf: currentPDF, scaleFactor: controlPDFView.scaleFactor)
     }
 }
 

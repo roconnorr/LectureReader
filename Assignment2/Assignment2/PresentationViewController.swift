@@ -22,8 +22,9 @@ class PresentationViewController: NSViewController, ControlDelegate {
         presentationPDFView.displayMode = .singlePage
     }
     
-    func updatePDF(pdf: PDFDocument) {
+    func updatePDF(pdf: PDFDocument, scaleFactor: CGFloat) {
         presentationPDFView.document = pdf
+        presentationPDFView.scaleFactor = scaleFactor
     }
     
     func nextPage() {
@@ -44,5 +45,9 @@ class PresentationViewController: NSViewController, ControlDelegate {
     
     func zoomOut() {
         presentationPDFView.zoomOut(Any?.self)
+    }
+    
+    func fitToPage() {
+        presentationPDFView.scaleFactor = 1.0
     }
 }
