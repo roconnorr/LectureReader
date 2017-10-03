@@ -384,7 +384,10 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         //if a page is currently opened, set the index and pageNumberTextField
         if let page  = controlPDFView.currentPage {
             currentPageIndex = (controlPDFView.document?.index(for: page))! + 1
+            
+            //set page number and page notes fields
             pageNumberTextField.stringValue = currentPageIndex.description
+            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
         }
     }
     
