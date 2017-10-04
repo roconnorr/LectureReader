@@ -57,6 +57,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     //current lecture file
     var currentLectureIndex: Int = 0
     
+    //appdelegate reference for handling menu items
+    let appDelegate = NSApplication.shared().delegate as! AppDelegate
+    
     //reference to the pop out presentation window
     var presentationWindow: NSWindow!
     
@@ -99,7 +102,6 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         
         if isIndexValid {
             currentLectureIndex += 1
-            currentPageIndex = 1
             
             //retrieve the next pdf file and update the control and presentation PDFViews
             let pdf = pdfModel.openPDFs[currentLectureIndex]
@@ -107,17 +109,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
             
-            //load notes
-            fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
-            
             //start at the first page
-            controlPDFView.goToFirstPage(Any?.self)
+            changePage(pageNumber: 1)
             
-            //set labels and page number field
-            currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
-            totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
-            pageNumberTextField.stringValue = currentPageIndex.description
+            //update bookmarks menu
+            updateBookmarkMenuItems()
         }
     }
     
@@ -131,7 +127,6 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         
         if isIndexValid {
             currentLectureIndex -= 1
-            currentPageIndex = 1
             
             //retrieve the next pdf file and update the control and presentation PDFViews
             let pdf = pdfModel.openPDFs[currentLectureIndex]
@@ -139,17 +134,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
             
-            //load notes
-            fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
-            
             //start at the first page
-            controlPDFView.goToFirstPage(Any?.self)
+            changePage(pageNumber: 1)
             
-            //set labels and page number field
-            currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
-            totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
-            pageNumberTextField.stringValue = currentLectureIndex.description
+            //update bookmarks menu
+            updateBookmarkMenuItems()
         }
     }
     
@@ -161,14 +150,10 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      */
     @IBAction func nextPageButton(_ sender: NSButton) {
         if controlPDFView.canGoToNextPage() {
-            //go to the next page and set index
-            controlPDFView.goToNextPage(Any?.self)
-            presentationDelegate?.nextPage()
             currentPageIndex += 1
+            changePage(pageNumber: currentPageIndex)
             
-            //set page number and page notes fields
-            pageNumberTextField.stringValue = currentPageIndex.description
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
+            presentationDelegate?.nextPage()
         }
     }
     
@@ -180,14 +165,10 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      */
     @IBAction func prevPageButton(_ sender: Any) {
         if controlPDFView.canGoToPreviousPage(){
-            //go to the prev page and set index
-            controlPDFView.goToPreviousPage(Any?.self)
-            presentationDelegate?.prevPage()
             currentPageIndex -= 1
+            changePage(pageNumber: currentPageIndex)
+            presentationDelegate?.prevPage()
             
-            //set page number and page notes fields
-            pageNumberTextField.stringValue = currentPageIndex.description
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
         }
     }
     
@@ -218,6 +199,30 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         presentationDelegate?.fitToPage()
     }
     
+    /**
+     Handles bookmark page button clicked event.
+     Adds the page number to the PDFContainer
+     */
+    @IBAction func bookmarkPageButton(_ sender: NSButton) {
+        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+        
+        //if there is a lecture open, add the current page as a bookpark
+        if isIndexValid {
+            pdfModel.openPDFs[currentLectureIndex].bookmarks.append(currentPageIndex)
+            
+            updateBookmarkMenuItems()
+        }
+    }
+    
+    /**
+     Handles bookmark menu item clicked event.
+     Changes the page to the bookmark
+     */
+    func bookmarkMenuAction(_ sender: NSMenuItem){
+        if let location = Int(sender.title){
+            changePage(pageNumber: location)
+        }
+    }
     
     /**
      Handles text entered in pageNumberTextField, if a valid page was entered,
@@ -226,15 +231,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func pageNumberEntered(_ sender: NSTextField) {
         //check if the string entered is an int
         if let input = Int(pageNumberTextField.stringValue){
-            //get the page at the entered number
-            let page = controlPDFView.document?.page(at: input-1)
-            
-            //check that the retrieved page exists
-            if(page != nil){
-                //go to the page and open the page notes
-                controlPDFView.go(to: page!)
-                pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
-            }
+            changePage(pageNumber: input)
         }
     }
     
@@ -300,9 +297,8 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                             currentPageIndex = 1
                             
                             //set labels and page number field
-                            pageNumberTextField.stringValue = currentPageIndex.description
-                            totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
-                            currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
+                            changePage(pageNumber: currentPageIndex)
+                            
                         }else{
                             //if no PDFs were found, do nothing
                             print("No PDFs in this folder")
@@ -325,10 +321,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                         //opened PDF starts at page 1
                         currentPageIndex = 1
                         
-                        //set labels and page number field
-                        pageNumberTextField.stringValue = currentPageIndex.description
-                        totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
-                        currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
+                        changePage(pageNumber: currentPageIndex)
                     }
                 }
             }
@@ -396,15 +389,13 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         if let page  = controlPDFView.currentPage {
             currentPageIndex = (controlPDFView.document?.index(for: page))! + 1
             
-            //set page number and page notes fields
-            pageNumberTextField.stringValue = currentPageIndex.description
-            pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
+            changePage(pageNumber: currentPageIndex - 1)
         }
     }
     
     
     //MARK: Utility Functions
-    
+
     /**
      Overrides NSTextFieldDelegate method for detecting when text is entered.
      Handles changes in both note entry fields
@@ -443,6 +434,34 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     }
     
     /**
+     Helper function for changing pages, finds the page at the index and
+     updates the view, also updates notes, labels and other info
+     */
+    func changePage(pageNumber: Int){
+        
+        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+        
+        if isIndexValid {
+            currentPageIndex = pageNumber
+            
+            
+            if let doc = controlPDFView.document?.page(at: currentPageIndex - 1){
+                controlPDFView.go(to: doc)
+        
+                //load notes
+                fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
+                pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
+        
+                //set labels and page number field
+                currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
+                totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
+                pageNumberTextField.stringValue = currentPageIndex.description
+            
+            }
+        }
+    }
+    
+    /**
      Helper function for retriving the path of each PDF file in a folder
      given a folder path and a file extension
      */
@@ -463,6 +482,18 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         }
         
         return allFiles
+    }
+    
+    /**
+     Helper function for populating the bookmarks menu with bookmarks
+     from the current lecture
+     */
+    func updateBookmarkMenuItems(){
+        appDelegate.bookmarksMenu.removeAllItems()
+        
+        for page in pdfModel.openPDFs[currentLectureIndex].bookmarks{
+            appDelegate.bookmarksMenu.addItem(NSMenuItem(title: page.description, action: #selector(bookmarkMenuAction(_:)), keyEquivalent: ""))
+        }
     }
     
     /**
