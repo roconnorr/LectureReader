@@ -14,8 +14,7 @@ import Quartz
  */
 protocol ControlDelegate {
     func updatePDF(pdf: PDFDocument, scaleFactor: CGFloat)
-    func nextPage()
-    func prevPage()
+    func goToPage(page: PDFPage)
     func zoomIn()
     func zoomOut()
     func fitToPage()
@@ -152,8 +151,6 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         if controlPDFView.canGoToNextPage() {
             currentPageIndex += 1
             changePage(pageNumber: currentPageIndex)
-            
-            presentationDelegate?.nextPage()
         }
     }
     
@@ -167,8 +164,6 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         if controlPDFView.canGoToPreviousPage(){
             currentPageIndex -= 1
             changePage(pageNumber: currentPageIndex)
-            presentationDelegate?.prevPage()
-            
         }
     }
     
@@ -219,9 +214,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      Changes the page to the bookmark
      */
     func bookmarkMenuAction(_ sender: NSMenuItem){
-        if let location = Int(sender.title){
-            changePage(pageNumber: location)
-        }
+        //if let location = Int(sender.title){
+            changePage(pageNumber: sender.tag)
+        //}
     }
     
     /**
@@ -367,6 +362,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //update the presentation view pdf if a pdf is currently open
             if let openPDF = controlPDFView.document {
                 updateDelegate(currentPDF: openPDF)
+                changePage(pageNumber: currentPageIndex)
             }
         }
     }
@@ -445,8 +441,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             currentPageIndex = pageNumber
             
             
-            if let doc = controlPDFView.document?.page(at: currentPageIndex - 1){
-                controlPDFView.go(to: doc)
+            if let page = controlPDFView.document?.page(at: currentPageIndex - 1){
+                controlPDFView.go(to: page)
+                presentationDelegate?.goToPage(page: page)
         
                 //load notes
                 fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
@@ -492,7 +489,10 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         appDelegate.bookmarksMenu.removeAllItems()
         
         for page in pdfModel.openPDFs[currentLectureIndex].bookmarks{
-            appDelegate.bookmarksMenu.addItem(NSMenuItem(title: page.description, action: #selector(bookmarkMenuAction(_:)), keyEquivalent: ""))
+            let newItem = NSMenuItem(title: "Page: " + page.description, action: #selector(bookmarkMenuAction(_:)), keyEquivalent: "")
+            
+            newItem.tag = page
+            appDelegate.bookmarksMenu.addItem(newItem)
         }
     }
     

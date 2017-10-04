@@ -27,16 +27,8 @@ class PresentationViewController: NSViewController, ControlDelegate {
         presentationPDFView.scaleFactor = scaleFactor
     }
     
-    func nextPage() {
-        if presentationPDFView.canGoToNextPage() {
-            presentationPDFView.goToNextPage(Any?.self)
-        }
-    }
-    
-    func prevPage() {
-        if presentationPDFView.canGoToPreviousPage(){
-            presentationPDFView.goToPreviousPage(Any?.self)
-        }
+    func goToPage(page: PDFPage) {
+        presentationPDFView.go(to: page)
     }
     
     func zoomIn() {
