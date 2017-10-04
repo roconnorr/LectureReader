@@ -18,6 +18,7 @@ class PDFContainer: NSObject {
     
     //a note's index in the array corresponds to its page
     var pageNotes: [String] = [String](repeating: "", count: 50)
+    var pageTimes: [Double] = [Double](repeating: 2.0, count: 50)
     
     //var bookmarks: [Int: String] = [:]
     var bookmarks: [Int] = [Int]()

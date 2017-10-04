@@ -665,6 +665,37 @@
                                     <action selector="bookmarkPageButton:" target="XfG-lQ-9wD" id="kkK-Ou-pr7"/>
                                 </connections>
                             </button>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" tag="203" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uY1-HF-f6f">
+                                <rect key="frame" x="474" y="537" width="34" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="kKu-b4-f3i">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wxL-cy-Y9x">
+                                <rect key="frame" x="528" y="531" width="148" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="start presentation" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wen-BN-pNk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="startPresentationButton:" target="XfG-lQ-9wD" id="rNI-OS-JTd"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="heB-CV-no6">
+                                <rect key="frame" x="676" y="530" width="147" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="stop presentation" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="opd-D7-JoL">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="stopPresentationButton:" target="XfG-lQ-9wD" id="4e3-DC-DD8"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -673,6 +704,7 @@
                         <outlet property="fileNotesTextField" destination="6KM-cr-D05" id="eSH-E3-AqU"/>
                         <outlet property="pageNotesTextField" destination="gky-Ks-zgA" id="kS2-Jq-xz9"/>
                         <outlet property="pageNumberTextField" destination="Tsv-da-wTl" id="eda-RL-brq"/>
+                        <outlet property="slideTimeTextField" destination="uY1-HF-f6f" id="ji2-zX-LWF"/>
                         <outlet property="totalPagesLabel" destination="laL-6q-9gI" id="BiT-26-vk3"/>
                     </connections>
                 </viewController>

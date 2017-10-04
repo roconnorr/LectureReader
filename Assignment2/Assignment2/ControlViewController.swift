@@ -47,6 +47,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     //take notes for tue current page
     @IBOutlet weak var pageNotesTextField: NSTextField!
     
+    //displays and recieves slide pause times
+    @IBOutlet weak var slideTimeTextField: NSTextField!
+    
     
     //MARK: Variables
     
@@ -74,6 +77,12 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     //store the last search result selection
     var lastSearchResult: PDFSelection? = nil
     
+    //timer variable for slideshow
+    var slideTimer = Timer()
+    
+    //run loop reference for timer
+    let runLoop = RunLoop.current
+    
     /**
      Perform setup after the view has loaded
      */
@@ -87,6 +96,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         //set textfield delegates
         fileNotesTextField.delegate = self
         pageNotesTextField.delegate = self
+        slideTimeTextField.delegate = self
     }
     
     //MARK: Actions
@@ -203,9 +213,13 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         
         //if there is a lecture open, add the current page as a bookpark
         if isIndexValid {
-            pdfModel.openPDFs[currentLectureIndex].bookmarks.append(currentPageIndex)
+            //if the bookmark doesn't already exist, add it.
+            if !pdfModel.openPDFs[currentLectureIndex].bookmarks.contains(currentPageIndex){
+                pdfModel.openPDFs[currentLectureIndex].bookmarks.append(currentPageIndex)
+                //update the menu with current bookmarks
+                updateBookmarkMenuItems()
+            }
             
-            updateBookmarkMenuItems()
         }
     }
     
@@ -386,6 +400,25 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
+    /**
+     Starts a presentation by creating a one off timer that calls the automatic
+     page changing function
+     */
+    @IBAction func startPresentationButton(_ sender: NSButton) {
+        // Create a timer object that calls the nextPage method every second
+        slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+        
+        runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
+    }
+    
+    /**
+     Stops a presentation by invalidating the current timer
+     */
+    @IBAction func stopPresentationButton(_ sender: NSButton) {
+        slideTimer.invalidate()
+    }
+    
+    
     
     //MARK: Utility Functions
 
@@ -394,6 +427,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      Handles changes in both note entry fields
      */
     override func controlTextDidChange(_ obj: Notification) {
+        print("here")
         if let txtFld = obj.object as? NSTextField {
             switch txtFld.tag {
             //fileNotesTextField
@@ -418,6 +452,20 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                     pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex] = txtFld.stringValue
                 }else{
                     //if no lecture is open, prevent text entry
+                    txtFld.stringValue = ""
+                }
+            //slide length field
+            case 203:
+                print("here")
+                //check if a lecture is currently open
+                let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+                
+                if isIndexValid {
+                    if let time = Double(txtFld.stringValue){
+                        print("saved")
+                        pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex] = time
+                    }
+                }else{
                     txtFld.stringValue = ""
                 }
             default:
@@ -445,11 +493,15 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                 //load notes
                 fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
                 pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
+                
+                //load slide time
+                slideTimeTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex].description
         
                 //set labels and page number field
                 currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
                 totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
                 pageNumberTextField.stringValue = currentPageIndex.description
+                
             
             }
         }
@@ -491,6 +543,18 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             newItem.tag = page
             appDelegate.bookmarksMenu.addItem(newItem)
         }
+    }
+    
+    /**
+     Helper function to be called by the start presentation function
+     sets up a new timer with the correct value to trigger itself
+     */
+    func automaticPageChange(_ theTimer:Foundation.Timer){
+        changePage(pageNumber: currentPageIndex + 1)
+        slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+        
+        //attach timer to the event loop
+        runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
     }
     
     /**
