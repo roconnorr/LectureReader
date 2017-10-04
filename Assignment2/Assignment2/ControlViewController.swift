@@ -214,9 +214,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      Changes the page to the bookmark
      */
     func bookmarkMenuAction(_ sender: NSMenuItem){
-        //if let location = Int(sender.title){
-            changePage(pageNumber: sender.tag)
-        //}
+        changePage(pageNumber: sender.tag)
     }
     
     /**
@@ -381,11 +379,10 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         controlPDFView.setCurrentSelection(lastSearchResult, animate: true)
         controlPDFView.scrollSelectionToVisible(Any?.self)
         
-        //if a page is currently opened, set the index and pageNumberTextField
+        //if a page is currently opened, change page to set fields
         if let page  = controlPDFView.currentPage {
             currentPageIndex = (controlPDFView.document?.index(for: page))! + 1
-            
-            changePage(pageNumber: currentPageIndex - 1)
+            changePage(pageNumber: currentPageIndex)
         }
     }
     
