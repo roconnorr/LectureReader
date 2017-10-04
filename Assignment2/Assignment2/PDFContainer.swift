@@ -14,11 +14,14 @@ import Quartz
  */
 class PDFContainer: NSObject {
 
+    //path of the PDF file
     var path: String
     
     //a note's index in the array corresponds to its page
     var pageNotes: [String] = [String](repeating: "", count: 50)
     var pageTimes: [Double] = [Double](repeating: 2.0, count: 50)
+    
+    //hashmaps instead of arrays?
     
     //var bookmarks: [Int: String] = [:]
     var bookmarks: [Int] = [Int]()

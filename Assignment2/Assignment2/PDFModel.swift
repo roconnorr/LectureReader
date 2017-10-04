@@ -10,6 +10,5 @@ import Cocoa
 import Quartz
 
 class PDFModel: NSObject {
-    
     var openPDFs: [PDFContainer] = [PDFContainer]()
 }

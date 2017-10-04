@@ -9,13 +9,17 @@
 import Cocoa
 import Quartz
 
+/**
+ View controller for the presentation window. Conforms to the 
+ ControlDelegate protocol so that its methods can be called by
+ the control window controller
+ */
 class PresentationViewController: NSViewController, ControlDelegate {
     
     @IBOutlet weak var presentationPDFView: PDFView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         
         //set up pdfView options
         presentationPDFView.autoScales = true

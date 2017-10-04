@@ -418,8 +418,6 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         slideTimer.invalidate()
     }
     
-    
-    
     //MARK: Utility Functions
 
     /**
@@ -427,7 +425,6 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      Handles changes in both note entry fields
      */
     override func controlTextDidChange(_ obj: Notification) {
-        print("here")
         if let txtFld = obj.object as? NSTextField {
             switch txtFld.tag {
             //fileNotesTextField
@@ -456,13 +453,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                 }
             //slide length field
             case 203:
-                print("here")
                 //check if a lecture is currently open
                 let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
                 
                 if isIndexValid {
                     if let time = Double(txtFld.stringValue){
-                        print("saved")
                         pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex] = time
                     }
                 }else{
@@ -474,6 +469,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
+    
     /**
      Helper function for changing pages, finds the page at the index and
      updates the view, also updates notes, labels and other info
@@ -484,7 +480,6 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         
         if isIndexValid {
             currentPageIndex = pageNumber
-            
             
             if let page = controlPDFView.document?.page(at: currentPageIndex - 1){
                 controlPDFView.go(to: page)
@@ -550,7 +545,8 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      sets up a new timer with the correct value to trigger itself
      */
     func automaticPageChange(_ theTimer:Foundation.Timer){
-        changePage(pageNumber: currentPageIndex + 1)
+        currentPageIndex += 1
+        changePage(pageNumber: currentPageIndex)
         slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
         
         //attach timer to the event loop

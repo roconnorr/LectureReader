@@ -466,7 +466,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1063" height="626"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <pdfView autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8og-zi-gGQ">
+                            <pdfView autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8og-zi-gGQ" customClass="CustomPDFView" customModule="Assignment2" customModuleProvider="target">
                                 <rect key="frame" x="310" y="29" width="500" height="500"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </pdfView>

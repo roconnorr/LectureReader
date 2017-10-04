@@ -1,10 +1,10 @@
 //
 //  TimerModel.swift
-//  Timer
 //
 //  Designed by Lech Szymanski in 2014.
 //  Swift implementation by David Eyers in 2015.
 //  Updated for Swift 3.x / Xcode 8.3 in 2017 by David Eyers.
+//  Adapted for project by Rory O'Connor
 //
 
 import Foundation

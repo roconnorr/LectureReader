@@ -2,8 +2,7 @@
 //  TimerViewController.swift
 //  Assignment2
 //
-//  Created by Rory O'Connor on 3/10/17.
-//  Copyright © 2017 Rory O'Connor. All rights reserved.
+//  Adapted from David Eyers' timer lecture example project by Rory O'Connor
 //
 
 import Cocoa
@@ -21,10 +20,6 @@ class TimerViewController: NSViewController, TimerModelDelegate {
     // Outlets to the buttons at the bottom of the window
     @IBOutlet weak var startStopButton: NSButton!
     @IBOutlet weak var resetButton: NSButton!
-    
-    // Outlets to the menus that we added
-    //@IBOutlet weak var startMenuItem: NSMenuItem!
-    //@IBOutlet weak var stopMenuItem: NSMenuItem!
     
     // Timer state is now in an instance of the model
     var timer:TimerModel? = nil
@@ -105,15 +100,4 @@ class TimerViewController: NSViewController, TimerModelDelegate {
     @IBAction func resetAction(_ sender:AnyObject){
         timer!.reset()
     }
-    
-    // When users interact with a menu, the system checks whether items should be greyed out.
-    // We use our "running" state to determine whether to grey out start or stop.
-//    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-//        if(menuItem == startMenuItem) {
-//            return !timer!.running
-//        } else if (menuItem == stopMenuItem) {
-//            return timer!.running
-//        }
-//        return true
-//    }
 }
