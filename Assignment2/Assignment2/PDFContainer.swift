@@ -10,7 +10,8 @@ import Cocoa
 import Quartz
 
 /**
- class to store the location of a PDF file, as well as its note related information
+ class to store the location of a PDF file, as well as note and 
+ bookmark information
  */
 class PDFContainer: NSObject {
 
