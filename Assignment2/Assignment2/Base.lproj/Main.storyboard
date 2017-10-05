@@ -484,9 +484,9 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egf-8e-B6y">
-                                <rect key="frame" x="1034" y="418" width="86" height="17"/>
+                                <rect key="frame" x="1021" y="418" width="99" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="82" id="9LB-Rr-8qZ"/>
+                                    <constraint firstAttribute="width" constant="95" id="9LB-Rr-8qZ"/>
                                     <constraint firstAttribute="height" constant="17" id="vkj-g8-nFS"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Page # Notes:" id="ZIH-Ii-Odg">
@@ -565,6 +565,15 @@
                                                 <action selector="bookmarkPageButton:" target="XfG-lQ-9wD" id="Tkn-LI-cId"/>
                                             </connections>
                                         </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laL-6q-9gI">
+                                            <rect key="frame" x="180" y="12" width="33" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="/" id="pks-W4-MlE">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                         <button toolTip="Fit To Screen" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cmw-2z-B5j">
                                             <rect key="frame" x="267" y="6" width="35" height="35"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -589,9 +598,9 @@
                                             </connections>
                                         </button>
                                         <textField toolTip="Current Page" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsv-da-wTl">
-                                            <rect key="frame" x="142" y="12" width="32" height="20"/>
+                                            <rect key="frame" x="148" y="14" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1" drawsBackground="YES" id="tqB-mw-GMq">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="1" drawsBackground="YES" id="tqB-mw-GMq">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -599,15 +608,6 @@
                                             <connections>
                                                 <action selector="pageNumberEntered:" target="XfG-lQ-9wD" id="HdW-GP-MTd"/>
                                             </connections>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laL-6q-9gI">
-                                            <rect key="frame" x="180" y="12" width="33" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="/" id="pks-W4-MlE">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
                                         </textField>
                                     </subviews>
                                 </view>
@@ -791,6 +791,7 @@
                         <outlet property="controlPDFView" destination="8og-zi-gGQ" id="Gm6-Z2-U3u"/>
                         <outlet property="currentLectureLabel" destination="iGx-h9-6GQ" id="yXf-Xb-yaL"/>
                         <outlet property="fileNotesTextField" destination="6KM-cr-D05" id="eSH-E3-AqU"/>
+                        <outlet property="pageNotesLabel" destination="Egf-8e-B6y" id="uuc-rr-Tfk"/>
                         <outlet property="pageNotesTextField" destination="gky-Ks-zgA" id="kS2-Jq-xz9"/>
                         <outlet property="pageNumberTextField" destination="Tsv-da-wTl" id="eda-RL-brq"/>
                         <outlet property="slideTimeTextField" destination="uY1-HF-f6f" id="ji2-zX-LWF"/>

@@ -47,6 +47,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     //take notes for tue current page
     @IBOutlet weak var pageNotesTextField: NSTextField!
     
+    @IBOutlet weak var pageNotesLabel: NSTextField!
+    
+    
     //displays and recieves slide pause times
     @IBOutlet weak var slideTimeTextField: NSTextField!
     
@@ -520,6 +523,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                 currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
                 totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
                 pageNumberTextField.stringValue = currentPageIndex.description
+                pageNotesLabel.stringValue = "Page " + currentPageIndex.description + " Notes"
             }
         }
     }
