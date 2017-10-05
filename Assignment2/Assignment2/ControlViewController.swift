@@ -50,6 +50,8 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     //displays and recieves slide pause times
     @IBOutlet weak var slideTimeTextField: NSTextField!
     
+    @IBOutlet weak var startSlideshowButton: NSButton!
+    
     
     //MARK: Variables
     
@@ -409,21 +411,23 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func startPresentationButton(_ sender: NSButton) {
         let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
         
-        if isIndexValid  && timerRunning == false{
-            timerRunning = true
-            // Create a timer object that calls the nextPage method every second
-            slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+        if isIndexValid {
+            if timerRunning == false {
+                timerRunning = true
+                // Create a timer object that calls the nextPage method every second
+                slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
         
-            runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
+                runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
+            
+                //change the button image
+                
+                startSlideshowButton.image = NSImage(named: "pause")
+            }else{
+                timerRunning = false
+                slideTimer.invalidate()
+                startSlideshowButton.image = NSImage(named: "play")
+            }
         }
-    }
-    
-    /**
-     Stops a presentation by invalidating the current timer
-     */
-    @IBAction func stopPresentationButton(_ sender: NSButton) {
-        timerRunning = false
-        slideTimer.invalidate()
     }
     
     //MARK: Utility Functions

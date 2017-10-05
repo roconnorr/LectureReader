@@ -769,6 +769,7 @@
                         <outlet property="pageNotesTextField" destination="gky-Ks-zgA" id="kS2-Jq-xz9"/>
                         <outlet property="pageNumberTextField" destination="Tsv-da-wTl" id="eda-RL-brq"/>
                         <outlet property="slideTimeTextField" destination="uY1-HF-f6f" id="ji2-zX-LWF"/>
+                        <outlet property="startSlideshowButton" destination="EXR-7g-HDw" id="4Zq-47-Ou5"/>
                         <outlet property="totalPagesLabel" destination="laL-6q-9gI" id="BiT-26-vk3"/>
                     </connections>
                 </viewController>
