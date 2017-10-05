@@ -521,6 +521,8 @@
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="zoomout" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3lY-sZ-htX">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent">-</string>
+                                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="zoomOutButton:" target="XfG-lQ-9wD" id="opt-pc-0xl"/>
@@ -532,6 +534,7 @@
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrowright" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4uD-re-d0G">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent"></string>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="nextPageButton:" target="XfG-lQ-9wD" id="XtS-5E-QdZ"/>
@@ -543,6 +546,8 @@
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="zoomin" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qKk-Ij-9dd">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent">+</string>
+                                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="zoomInButton:" target="XfG-lQ-9wD" id="76n-KI-8nJ"/>
@@ -566,6 +571,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="fitToPageButton:" target="XfG-lQ-9wD" id="lP0-CY-O5a"/>
+                                            </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tgg-yu-fbc">
                                             <rect key="frame" x="95" y="6" width="35" height="35"/>
@@ -573,6 +581,7 @@
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrowleft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ksi-Nz-tXa">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent"></string>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="prevPageButton:" target="XfG-lQ-9wD" id="saj-a3-ydA"/>
@@ -628,6 +637,8 @@
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrowleft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-wP-oe0">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent"></string>
+                                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="prevLectureButton:" target="XfG-lQ-9wD" id="6xz-Yh-BgL"/>
@@ -648,6 +659,8 @@
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrowright" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qaR-iA-8vN">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent"></string>
+                                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="nextLectureButton:" target="XfG-lQ-9wD" id="uNe-cd-IrE"/>
@@ -708,7 +721,7 @@
                                     <action selector="startPresentationButton:" target="XfG-lQ-9wD" id="FUm-rV-3mN"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="249" tag="203" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uY1-HF-f6f">
+                            <textField toolTip="Current slide pause time" verticalHuggingPriority="249" tag="203" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uY1-HF-f6f">
                                 <rect key="frame" x="1065" y="681" width="46" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="nve-Qw-Uop"/>
