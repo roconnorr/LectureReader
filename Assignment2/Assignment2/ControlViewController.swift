@@ -415,7 +415,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             if timerRunning == false {
                 timerRunning = true
                 // Create a timer object that calls the nextPage method every second
-                slideTimer = Foundation.Timer(timeInterval: openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+                slideTimer = Foundation.Timer(timeInterval: openPDFs[currentLectureIndex].pageTimes[currentPageIndex] ?? 2.0, target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
         
                 runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
             
@@ -497,19 +497,29 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                 controlPDFView.go(to: page)
                 presentationDelegate?.goToPage(page: page)
         
-                //load notes
+                //load file note
                 fileNotesTextField.stringValue = openPDFs[currentLectureIndex].fileNote
-                pageNotesTextField.stringValue = openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
                 
-                //load slide time
-                slideTimeTextField.stringValue = openPDFs[currentLectureIndex].pageTimes[currentPageIndex].description
+                //load page note, if it doesn't exist set it to nothing
+                if let note = openPDFs[currentLectureIndex].pageNotes[currentPageIndex] {
+                    pageNotesTextField.stringValue = note
+                }else{
+                    openPDFs[currentLectureIndex].pageNotes[currentPageIndex] = ""
+                    pageNotesTextField.stringValue = ""
+                }
+                
+                //load slide time, if it doesn't exist set to the default time
+                if let time = openPDFs[currentLectureIndex].pageTimes[currentPageIndex]?.description{
+                    slideTimeTextField.stringValue = time
+                }else{
+                    openPDFs[currentLectureIndex].pageTimes[currentPageIndex] = 2.0
+                    slideTimeTextField.stringValue = "2.0"
+                }
         
                 //set labels and page number field
                 currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
                 totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
                 pageNumberTextField.stringValue = currentPageIndex.description
-                
-            
             }
         }
     }
@@ -562,7 +572,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         if isIndexValid {
             currentPageIndex += 1
             changePage(pageNumber: currentPageIndex)
-            slideTimer = Foundation.Timer(timeInterval: openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+            slideTimer = Foundation.Timer(timeInterval: openPDFs[currentLectureIndex].pageTimes[currentPageIndex] ?? 2.0, target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
         
             //attach timer to the event loop
             runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)

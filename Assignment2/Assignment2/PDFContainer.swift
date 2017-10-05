@@ -18,21 +18,18 @@ class PDFContainer: NSObject {
     //path of the PDF file
     var path: String
     
-    //a note's index in the array corresponds to its page
-    var pageNotes: [String] = [String](repeating: "", count: 50)
-    var pageTimes: [Double] = [Double](repeating: 2.0, count: 50)
+    //page notes and times stored in dictionaries to allow for
+    //any number of pages
+    var pageNotes: [Int: String] = [:]
+    var pageTimes: [Int: Double] = [:]
     
-    //hashmaps instead of arrays?
-    
-    //var bookmarks: [Int: String] = [:]
+    //store bookmarks
     var bookmarks: [Int] = [Int]()
     
+    //store note for this file
     var fileNote: String = ""
     
     init(path: String){
         self.path = path
     }
-    
-    //set array size function
-    //or make pageNotes a dictionary
 }
