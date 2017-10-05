@@ -394,7 +394,7 @@
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="-195" y="-172"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -403,8 +403,9 @@
                     <window key="window" title="Control Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="850" height="550"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="850" height="550"/>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -412,7 +413,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="-12" y="191"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="Yok-Ck-uQP">
@@ -464,14 +465,14 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ControlViewController" customModule="Assignment2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1201" height="750"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1200" height="750"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <pdfView autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8og-zi-gGQ" customClass="CustomPDFView" customModule="Assignment2" customModuleProvider="target">
-                                <rect key="frame" x="20" y="59" width="928" height="624"/>
+                                <rect key="frame" x="20" y="59" width="927" height="624"/>
                             </pdfView>
                             <textField toolTip="asdf" verticalHuggingPriority="750" tag="201" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KM-cr-D05">
-                                <rect key="frame" x="956" y="443" width="233" height="200"/>
+                                <rect key="frame" x="955" y="443" width="233" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="233" id="7al-ch-OtP"/>
                                     <constraint firstAttribute="height" constant="200" id="QfH-Eb-nun"/>
@@ -483,7 +484,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egf-8e-B6y">
-                                <rect key="frame" x="1035" y="418" width="86" height="17"/>
+                                <rect key="frame" x="1034" y="418" width="86" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="82" id="9LB-Rr-8qZ"/>
                                     <constraint firstAttribute="height" constant="17" id="vkj-g8-nFS"/>
@@ -495,7 +496,7 @@
                                 </textFieldCell>
                             </textField>
                             <searchField wantsLayer="YES" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8p-T4-j6O">
-                                <rect key="frame" x="989" y="713" width="178" height="22"/>
+                                <rect key="frame" x="988" y="713" width="178" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="178" id="i3C-zt-NGl"/>
                                     <constraint firstAttribute="height" constant="22" id="j5A-5M-VVA"/>
@@ -616,7 +617,7 @@
                                 </constraints>
                             </box>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="B6E-rY-QIf">
-                                <rect key="frame" x="956" y="9" width="233" height="118"/>
+                                <rect key="frame" x="955" y="9" width="233" height="118"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="233" id="HwQ-FQ-TVl"/>
                                     <constraint firstAttribute="height" constant="118" id="j3E-Eb-DC0"/>
@@ -626,7 +627,7 @@
                                 </connections>
                             </containerView>
                             <box translatesAutoresizingMaskIntoConstraints="NO" id="9Fo-Ny-8tj">
-                                <rect key="frame" x="290" y="687" width="389" height="67"/>
+                                <rect key="frame" x="289" y="687" width="389" height="67"/>
                                 <view key="contentView" id="lda-H5-AQO">
                                     <rect key="frame" x="2" y="2" width="385" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -697,7 +698,7 @@
                                 </constraints>
                             </box>
                             <textField verticalHuggingPriority="249" tag="202" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gky-Ks-zgA">
-                                <rect key="frame" x="956" y="135" width="233" height="275"/>
+                                <rect key="frame" x="955" y="135" width="233" height="275"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="233" id="hLB-Pv-ULd"/>
                                 </constraints>
@@ -708,7 +709,7 @@
                                 </textFieldCell>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="EXR-7g-HDw">
-                                <rect key="frame" x="1132" y="674" width="35" height="35"/>
+                                <rect key="frame" x="1131" y="674" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="6sg-DS-x0i"/>
                                     <constraint firstAttribute="height" constant="35" id="CZB-Ph-OzI"/>
@@ -722,7 +723,7 @@
                                 </connections>
                             </button>
                             <textField toolTip="Current slide pause time" verticalHuggingPriority="249" tag="203" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uY1-HF-f6f">
-                                <rect key="frame" x="1065" y="681" width="46" height="22"/>
+                                <rect key="frame" x="1064" y="681" width="46" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="nve-Qw-Uop"/>
                                 </constraints>
@@ -733,7 +734,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b86-Mi-dfu">
-                                <rect key="frame" x="987" y="683" width="72" height="17"/>
+                                <rect key="frame" x="986" y="683" width="72" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Slide Time:" id="TvM-lB-RkO">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -741,7 +742,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GtJ-3B-acb">
-                                <rect key="frame" x="1037" y="651" width="71" height="17"/>
+                                <rect key="frame" x="1036" y="651" width="71" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67" id="RZ4-Yn-Fsv"/>
                                     <constraint firstAttribute="height" constant="17" id="jwv-BD-lYN"/>
@@ -799,7 +800,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-449.5" y="1016"/>
+            <point key="canvasLocation" x="-395" y="1016"/>
         </scene>
         <!--Timer View Controller-->
         <scene sceneID="VYQ-qG-CDV">
