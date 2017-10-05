@@ -74,7 +74,8 @@ class TimerViewController: NSViewController, TimerModelDelegate {
         timer!.start()
         
         // Update the Start/Stop button label and state of the reset button
-        startStopButton.title = "Stop"
+        //startStopButton.title = "Stop"
+        startStopButton.image = NSImage(named: "pause")
         resetButton.isEnabled = false
     }
     
@@ -83,7 +84,8 @@ class TimerViewController: NSViewController, TimerModelDelegate {
         timer!.stop()
         
         // Update the Start/Stop button label and state of the reset button
-        startStopButton.title = "Start"
+        //startStopButton.title = "Start"
+        startStopButton.image = NSImage(named: "play")
         resetButton.isEnabled = true
     }
     
