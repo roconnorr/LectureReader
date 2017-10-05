@@ -125,6 +125,13 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
             
+            //stop the timer if it is running
+            if timerRunning == true{
+                timerRunning = false
+                slideTimer.invalidate()
+                startSlideshowButton.image = NSImage(named: "play")
+            }
+            
             //start at the first page
             changePage(pageNumber: 1)
             
@@ -149,6 +156,13 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             let newPDF = getPDFFromPath(path: pdf.path)
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
+            
+            //stop the timer if it is running
+            if timerRunning == true{
+                timerRunning = false
+                slideTimer.invalidate()
+                startSlideshowButton.image = NSImage(named: "play")
+            }
             
             //start at the first page
             changePage(pageNumber: 1)
@@ -573,13 +587,20 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     func automaticPageChange(_ theTimer:Foundation.Timer){
         let isIndexValid = openPDFs.indices.contains(currentLectureIndex + 1)
         
-        if isIndexValid {
-            currentPageIndex += 1
-            changePage(pageNumber: currentPageIndex)
-            slideTimer = Foundation.Timer(timeInterval: openPDFs[currentLectureIndex].pageTimes[currentPageIndex] ?? 2.0, target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+        if let _ = controlPDFView.document?.page(at: currentPageIndex){
+            if isIndexValid {
+                currentPageIndex += 1
+                changePage(pageNumber: currentPageIndex)
+                slideTimer = Foundation.Timer(timeInterval: openPDFs[currentLectureIndex].pageTimes[currentPageIndex] ?? 2.0, target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
         
-            //attach timer to the event loop
-            runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
+                //attach timer to the event loop
+                runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
+            }
+        }else{
+            //stop the timer if there are no more pages
+            timerRunning = false
+            slideTimer.invalidate()
+            startSlideshowButton.image = NSImage(named: "play")
         }
     }
     
