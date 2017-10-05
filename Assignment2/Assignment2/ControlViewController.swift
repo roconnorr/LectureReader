@@ -532,9 +532,10 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                     openPDFs[currentLectureIndex].pageTimes[currentPageIndex] = 2.0
                     slideTimeTextField.stringValue = "2.0"
                 }
-        
+                
+                let fileName = URL(fileURLWithPath: openPDFs[currentLectureIndex].path).lastPathComponent
                 //set labels and page number field
-                currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
+                currentLectureLabel.stringValue = fileName
                 totalPagesLabel.stringValue = "/" + String(describing: controlPDFView.document!.pageCount)
                 pageNumberTextField.stringValue = currentPageIndex.description
                 pageNotesLabel.stringValue = "Page " + currentPageIndex.description + " Notes"
