@@ -47,12 +47,14 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     //take notes for tue current page
     @IBOutlet weak var pageNotesTextField: NSTextField!
     
+    //label above the page notes field
     @IBOutlet weak var pageNotesLabel: NSTextField!
     
     
     //displays and recieves slide pause times
     @IBOutlet weak var slideTimeTextField: NSTextField!
     
+    //button to start the slideshow
     @IBOutlet weak var startSlideshowButton: NSButton!
     
     
@@ -137,6 +139,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             
             //update bookmarks menu
             updateBookmarkMenuItems()
+            
+            //save data
+            openPDFs[currentLectureIndex].save()
         }
     }
     
@@ -169,6 +174,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             
             //update bookmarks menu
             updateBookmarkMenuItems()
+            
+            //save data
+            openPDFs[currentLectureIndex].save()
         }
     }
     
@@ -303,7 +311,13 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                         //create a new pdf container array and populate it with paths to PDF files
                         var newPDFContainers: [PDFContainer] = [PDFContainer]()
                         for location in pdfLocations {
-                            newPDFContainers.append(PDFContainer(path: location))
+                            //attempt to load the data from disk
+                            if let data = PDFContainer.retrieveData(key: location){
+                                newPDFContainers.append(data)
+                            }else{
+                                //if there was no data, make a new container
+                                newPDFContainers.append(PDFContainer(path: location))
+                            }
                         }
                         
                         //set the open pdfs array
@@ -320,6 +334,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                             //update control and presentation PDFViews
                             controlPDFView.document = newPDF!
                             updateDelegate(currentPDF: newPDF!)
+                            
+                            //load bookmarks
+                            updateBookmarkMenuItems()
                             
                             //opened PDF starts at page 1
                             currentPageIndex = 1
@@ -339,8 +356,16 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                         //clear open documents array
                         openPDFs.removeAll()
                         
-                        //add new PDFContainer containing the path
-                        openPDFs.append(PDFContainer(path: result!.path))
+                        //attempt to load the data from disk
+                        if let data = PDFContainer.retrieveData(key: result!.path){
+                            openPDFs.append(data)
+                        }else{
+                            //if there was no data, make a new container
+                            openPDFs.append(PDFContainer(path: result!.path))
+                        }
+                        
+                        //load bookmarks
+                        updateBookmarkMenuItems()
                         
                         //update control and presentation PDFViews
                         controlPDFView.document = pdf
@@ -499,6 +524,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             default:
                 break
             }
+            
+            //save data
+            openPDFs[currentLectureIndex].save()
         }
     }
     
@@ -537,6 +565,10 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                     slideTimeTextField.stringValue = "2.0"
                 }
                 
+                //save data
+                openPDFs[currentLectureIndex].save()
+                
+                //get the filename to display
                 let fileName = URL(fileURLWithPath: openPDFs[currentLectureIndex].path).lastPathComponent
                 //set labels and page number field
                 currentLectureLabel.stringValue = fileName
