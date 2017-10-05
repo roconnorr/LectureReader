@@ -486,7 +486,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                 let isIndexValid = openPDFs.indices.contains(currentLectureIndex)
                 
                 if isIndexValid {
-                    if let time = Double(txtFld.stringValue){
+                    if var time = Double(txtFld.stringValue){
+                        //if time is negative, set it to the default
+                        if time < 0 {
+                            time = 2.0
+                        }
                         openPDFs[currentLectureIndex].pageTimes[currentPageIndex] = time
                     }
                 }else{

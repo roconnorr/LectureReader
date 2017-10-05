@@ -23,7 +23,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>PDF Reader Application for lectures. Code and Icons Copyright © 2017 Rory O'Connor and Joe Gasparich. All rights reserved.</string>
+	<string>PDF Reader Application for lectures. Code and Icons Copyright © 2017 Rory O&apos;Connor and Joe Gasparich. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
