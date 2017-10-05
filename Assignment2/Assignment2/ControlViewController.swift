@@ -83,6 +83,8 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     //run loop reference for timer
     let runLoop = RunLoop.current
     
+    var timerRunning: Bool = false
+    
     /**
      Perform setup after the view has loaded
      */
@@ -405,16 +407,22 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      page changing function
      */
     @IBAction func startPresentationButton(_ sender: NSButton) {
-        // Create a timer object that calls the nextPage method every second
-        slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
         
-        runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
+        if isIndexValid  && timerRunning == false{
+            timerRunning = true
+            // Create a timer object that calls the nextPage method every second
+            slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+        
+            runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
+        }
     }
     
     /**
      Stops a presentation by invalidating the current timer
      */
     @IBAction func stopPresentationButton(_ sender: NSButton) {
+        timerRunning = false
         slideTimer.invalidate()
     }
     
@@ -545,12 +553,16 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      sets up a new timer with the correct value to trigger itself
      */
     func automaticPageChange(_ theTimer:Foundation.Timer){
-        currentPageIndex += 1
-        changePage(pageNumber: currentPageIndex)
-        slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex + 1)
         
-        //attach timer to the event loop
-        runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
+        if isIndexValid {
+            currentPageIndex += 1
+            changePage(pageNumber: currentPageIndex)
+            slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+        
+            //attach timer to the event loop
+            runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
+        }
     }
     
     /**
