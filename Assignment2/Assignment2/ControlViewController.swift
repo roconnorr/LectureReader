@@ -55,6 +55,9 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     
     //MARK: Variables
     
+    //store open PDFs
+    var openPDFs: [PDFContainer] = [PDFContainer]()
+    
     //current page
     var currentPageIndex: Int = 1
     
@@ -69,9 +72,6 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     
     //reference to the presentation view controller
     var presentationController: PresentationViewController!
-    
-    //instance of the PDF file data storage class
-    var pdfModel: PDFModel = PDFModel()
     
     //presentation delegate reference
     var presentationDelegate: ControlDelegate? = nil
@@ -111,13 +111,13 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      */
     @IBAction func nextLectureButton(_ sender: NSButton) {
         //check if the next lecture exists
-        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex + 1)
+        let isIndexValid = openPDFs.indices.contains(currentLectureIndex + 1)
         
         if isIndexValid {
             currentLectureIndex += 1
             
             //retrieve the next pdf file and update the control and presentation PDFViews
-            let pdf = pdfModel.openPDFs[currentLectureIndex]
+            let pdf = openPDFs[currentLectureIndex]
             let newPDF = getPDFFromPath(path: pdf.path)
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
@@ -136,13 +136,13 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      */
     @IBAction func prevLectureButton(_ sender: NSButton) {
         //check if the next lecture exists
-        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex - 1)
+        let isIndexValid = openPDFs.indices.contains(currentLectureIndex - 1)
         
         if isIndexValid {
             currentLectureIndex -= 1
             
             //retrieve the next pdf file and update the control and presentation PDFViews
-            let pdf = pdfModel.openPDFs[currentLectureIndex]
+            let pdf = openPDFs[currentLectureIndex]
             let newPDF = getPDFFromPath(path: pdf.path)
             controlPDFView.document = newPDF
             updateDelegate(currentPDF: newPDF!)
@@ -213,13 +213,13 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      Adds the page number to the PDFContainer
      */
     @IBAction func bookmarkPageButton(_ sender: NSButton) {
-        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+        let isIndexValid = openPDFs.indices.contains(currentLectureIndex)
         
         //if there is a lecture open, add the current page as a bookpark
         if isIndexValid {
             //if the bookmark doesn't already exist, add it.
-            if !pdfModel.openPDFs[currentLectureIndex].bookmarks.contains(currentPageIndex){
-                pdfModel.openPDFs[currentLectureIndex].bookmarks.append(currentPageIndex)
+            if !openPDFs[currentLectureIndex].bookmarks.contains(currentPageIndex){
+                openPDFs[currentLectureIndex].bookmarks.append(currentPageIndex)
                 //update the menu with current bookmarks
                 updateBookmarkMenuItems()
             }
@@ -281,7 +281,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                         pdfLocations = pdfLocations.sorted { $0.compare($1, options: .numeric) == .orderedAscending }
                         
                         //clear old pdfs
-                        pdfModel.openPDFs.removeAll()
+                        openPDFs.removeAll()
                         
                         //create a new pdf container array and populate it with paths to PDF files
                         var newPDFContainers: [PDFContainer] = [PDFContainer]()
@@ -290,14 +290,14 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                         }
                         
                         //set the open pdfs array
-                        pdfModel.openPDFs = newPDFContainers
+                        openPDFs = newPDFContainers
     
                         //check if any pdfs were opened
-                        let isIndexValid = pdfModel.openPDFs.indices.contains(0)
+                        let isIndexValid = openPDFs.indices.contains(0)
                         
                         if isIndexValid {
                             //retrieve the first PDFDocument from its path
-                            let modelPdf = pdfModel.openPDFs[0]
+                            let modelPdf = openPDFs[0]
                             let newPDF = getPDFFromPath(path: modelPdf.path)
                             
                             //update control and presentation PDFViews
@@ -320,10 +320,10 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                         let pdf = PDFDocument(url: result!)
                         
                         //clear open documents array
-                        pdfModel.openPDFs.removeAll()
+                        openPDFs.removeAll()
                         
                         //add new PDFContainer containing the path
-                        pdfModel.openPDFs.append(PDFContainer(path: result!.path))
+                        openPDFs.append(PDFContainer(path: result!.path))
                         
                         //update control and presentation PDFViews
                         controlPDFView.document = pdf
@@ -409,13 +409,13 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      page changing function
      */
     @IBAction func startPresentationButton(_ sender: NSButton) {
-        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+        let isIndexValid = openPDFs.indices.contains(currentLectureIndex)
         
         if isIndexValid {
             if timerRunning == false {
                 timerRunning = true
                 // Create a timer object that calls the nextPage method every second
-                slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+                slideTimer = Foundation.Timer(timeInterval: openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
         
                 runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
             
@@ -442,11 +442,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //fileNotesTextField
             case 201:
                 //check if a lecture is currently open
-                let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+                let isIndexValid = openPDFs.indices.contains(currentLectureIndex)
                 
                 if isIndexValid {
                     //store the state of the text box in the note model
-                    pdfModel.openPDFs[currentLectureIndex].fileNote = txtFld.stringValue
+                    openPDFs[currentLectureIndex].fileNote = txtFld.stringValue
                 }else{
                     //if no lecture is open, prevent text entry
                     txtFld.stringValue = ""
@@ -454,11 +454,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //pageNotesTextField
             case 202:
                 //check if a lecture is currently open
-                let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+                let isIndexValid = openPDFs.indices.contains(currentLectureIndex)
                 
                 if isIndexValid {
                     //store the state of the text box in the note model
-                    pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex] = txtFld.stringValue
+                    openPDFs[currentLectureIndex].pageNotes[currentPageIndex] = txtFld.stringValue
                 }else{
                     //if no lecture is open, prevent text entry
                     txtFld.stringValue = ""
@@ -466,11 +466,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //slide length field
             case 203:
                 //check if a lecture is currently open
-                let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+                let isIndexValid = openPDFs.indices.contains(currentLectureIndex)
                 
                 if isIndexValid {
                     if let time = Double(txtFld.stringValue){
-                        pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex] = time
+                        openPDFs[currentLectureIndex].pageTimes[currentPageIndex] = time
                     }
                 }else{
                     txtFld.stringValue = ""
@@ -488,7 +488,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      */
     func changePage(pageNumber: Int){
         
-        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex)
+        let isIndexValid = openPDFs.indices.contains(currentLectureIndex)
         
         if isIndexValid {
             currentPageIndex = pageNumber
@@ -498,11 +498,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
                 presentationDelegate?.goToPage(page: page)
         
                 //load notes
-                fileNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].fileNote
-                pageNotesTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
+                fileNotesTextField.stringValue = openPDFs[currentLectureIndex].fileNote
+                pageNotesTextField.stringValue = openPDFs[currentLectureIndex].pageNotes[currentPageIndex]
                 
                 //load slide time
-                slideTimeTextField.stringValue = pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex].description
+                slideTimeTextField.stringValue = openPDFs[currentLectureIndex].pageTimes[currentPageIndex].description
         
                 //set labels and page number field
                 currentLectureLabel.stringValue = "Lecture " + (currentLectureIndex + 1).description
@@ -544,7 +544,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     func updateBookmarkMenuItems(){
         appDelegate.bookmarksMenu.removeAllItems()
         
-        for page in pdfModel.openPDFs[currentLectureIndex].bookmarks{
+        for page in openPDFs[currentLectureIndex].bookmarks{
             let newItem = NSMenuItem(title: "Page: " + page.description, action: #selector(bookmarkMenuAction(_:)), keyEquivalent: "")
             
             newItem.tag = page
@@ -557,12 +557,12 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      sets up a new timer with the correct value to trigger itself
      */
     func automaticPageChange(_ theTimer:Foundation.Timer){
-        let isIndexValid = pdfModel.openPDFs.indices.contains(currentLectureIndex + 1)
+        let isIndexValid = openPDFs.indices.contains(currentLectureIndex + 1)
         
         if isIndexValid {
             currentPageIndex += 1
             changePage(pageNumber: currentPageIndex)
-            slideTimer = Foundation.Timer(timeInterval: pdfModel.openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
+            slideTimer = Foundation.Timer(timeInterval: openPDFs[currentLectureIndex].pageTimes[currentPageIndex], target: self, selector: #selector(automaticPageChange(_:)), userInfo: nil, repeats: false)
         
             //attach timer to the event loop
             runLoop.add(slideTimer, forMode: RunLoopMode.commonModes)
