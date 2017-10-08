@@ -27,7 +27,7 @@ public class TimerModel: NSObject {
     }
     
     // the OS's NSTimer will callback here
-    func countUp(_ theTimer:Foundation.Timer) {
+    @objc func countUp(_ theTimer:Foundation.Timer) {
         if(!stopping) {
             seconds += 1
             alertDelegate()

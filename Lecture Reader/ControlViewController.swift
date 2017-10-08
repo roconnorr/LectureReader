@@ -70,7 +70,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     var currentLectureIndex: Int = 0
     
     //appdelegate reference for handling menu items
-    let appDelegate = NSApplication.shared().delegate as! AppDelegate
+    let appDelegate = NSApplication.shared.delegate as! AppDelegate
     
     //reference to the pop out presentation window
     var presentationWindow: NSWindow!
@@ -131,7 +131,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             if timerRunning == true{
                 timerRunning = false
                 slideTimer.invalidate()
-                startSlideshowButton.image = NSImage(named: "play")
+                startSlideshowButton.image = NSImage(named: NSImage.Name(rawValue: "play"))
             }
             
             //start at the first page
@@ -166,7 +166,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             if timerRunning == true{
                 timerRunning = false
                 slideTimer.invalidate()
-                startSlideshowButton.image = NSImage(named: "play")
+                startSlideshowButton.image = NSImage(named: NSImage.Name(rawValue: "play"))
             }
             
             //start at the first page
@@ -187,7 +187,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      and notes text fields
      */
     @IBAction func nextPageButton(_ sender: NSButton) {
-        if controlPDFView.canGoToNextPage() {
+        if controlPDFView.canGoToNextPage {
             currentPageIndex += 1
             changePage(pageNumber: currentPageIndex)
         }
@@ -200,7 +200,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      and notes text fields
      */
     @IBAction func prevPageButton(_ sender: Any) {
-        if controlPDFView.canGoToPreviousPage(){
+        if controlPDFView.canGoToPreviousPage{
             currentPageIndex -= 1
             changePage(pageNumber: currentPageIndex)
         }
@@ -256,7 +256,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      Handles bookmark menu item clicked event.
      Changes the page to the bookmark
      */
-    func bookmarkMenuAction(_ sender: NSMenuItem){
+    @objc func bookmarkMenuAction(_ sender: NSMenuItem){
         changePage(pageNumber: sender.tag)
     }
     
@@ -289,7 +289,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         dialog.allowedFileTypes        = ["pdf"];
         
         //open the dialog
-        if (dialog.runModal() == NSModalResponseOK) {
+        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
             //URL of the opened file/folder
             let result = dialog.url
             if (result != nil) {
@@ -395,17 +395,17 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
         var isWindowVisible = false
         
         if let window = presentationWindow {
-            isWindowFullscreen = window.styleMask.contains(NSWindowStyleMask.fullScreen)
+            isWindowFullscreen = window.styleMask.contains(NSWindow.StyleMask.fullScreen)
             isWindowVisible = window.isVisible
         }
         
         //if the window is not already open, create the window
         if !isWindowFullscreen && !isWindowVisible {
             //get a reference to the storyboard
-            let storyboard = NSStoryboard(name: "Main",bundle: nil)
+            let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"),bundle: nil)
             
             //create an instance of the presentation controller
-            presentationController = storyboard.instantiateController(withIdentifier: "presentationViewController") as! PresentationViewController
+            presentationController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "presentationViewController")) as! PresentationViewController
             //assign the delegate variable
             presentationDelegate = presentationController
             
@@ -433,7 +433,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func searchStringEntered(_ sender: NSSearchField) {
         //set and pass the last search result. If it is nil search starts at the start of the document
         //if not nil, finds the next result
-        lastSearchResult = controlPDFView.document?.findString(sender.stringValue, from: lastSearchResult, withOptions: Int(NSString.CompareOptions.caseInsensitive.rawValue))
+        lastSearchResult = controlPDFView.document?.findString(sender.stringValue, from: lastSearchResult)
         
         //if the search returned a result, highlight it and scroll the view to the selection
         controlPDFView.setCurrentSelection(lastSearchResult, animate: true)
@@ -463,11 +463,11 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             
                 //change the button image
                 
-                startSlideshowButton.image = NSImage(named: "pause")
+                startSlideshowButton.image = NSImage(named: NSImage.Name(rawValue: "pause"))
             }else{
                 timerRunning = false
                 slideTimer.invalidate()
-                startSlideshowButton.image = NSImage(named: "play")
+                startSlideshowButton.image = NSImage(named: NSImage.Name(rawValue: "play"))
             }
         }
     }
@@ -621,7 +621,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
      Helper function to be called by the start presentation function
      sets up a new timer with the correct value to trigger itself
      */
-    func automaticPageChange(_ theTimer:Foundation.Timer){
+    @objc func automaticPageChange(_ theTimer:Foundation.Timer){
         let isIndexValid = openPDFs.indices.contains(currentLectureIndex + 1)
         
         if let _ = controlPDFView.document?.page(at: currentPageIndex){
@@ -637,7 +637,7 @@ class ControlViewController: NSViewController, NSTextFieldDelegate {
             //stop the timer if there are no more pages
             timerRunning = false
             slideTimer.invalidate()
-            startSlideshowButton.image = NSImage(named: "play")
+            startSlideshowButton.image = NSImage(named: NSImage.Name(rawValue: "play"))
         }
     }
     

@@ -49,7 +49,7 @@ class TimerViewController: NSViewController, TimerModelDelegate {
     }
     
     //update the system time display
-    func updateSystemTime(_ theTimer:Foundation.Timer){
+    @objc func updateSystemTime(_ theTimer:Foundation.Timer){
         systemTimeDisplay.stringValue = "\(dateFormatter.string(from: Date()))"
     }
     
@@ -74,7 +74,7 @@ class TimerViewController: NSViewController, TimerModelDelegate {
         timer!.start()
         
         // Update the Start/Stop button image and state of the reset button
-        startStopButton.image = NSImage(named: "pause")
+        startStopButton.image = NSImage(named: NSImage.Name(rawValue: "pause"))
         resetButton.isEnabled = false
     }
     
@@ -83,7 +83,7 @@ class TimerViewController: NSViewController, TimerModelDelegate {
         timer!.stop()
         
         // Update the Start/Stop button image and state of the reset button
-        startStopButton.image = NSImage(named: "play")
+        startStopButton.image = NSImage(named: NSImage.Name(rawValue: "play"))
         resetButton.isEnabled = true
     }
     
